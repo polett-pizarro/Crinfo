@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +20,7 @@ import cl.citiaps.spring.backend.repository.CommuneRepository;
 
 @CrossOrigin//se debe poner el puerto que ustedes usan en Vue;
 @RestController  
-@RequestMapping("/crimes")
+@RequestMapping("/")
 public class TweetService {
 	
 	@Autowired
@@ -29,18 +30,23 @@ public class TweetService {
     @Autowired
     private TweetRepository tweetRepository;
     
-    /*
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/tweets", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Tweet> getAllCrimes() {
         return tweetRepository.findAll();
-    }*/
+    }
     
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/TopComunas", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<HashMap<String,Integer>> getTopCommunes() {
         return tweetRepository.findTopCommune();
-    }   
+    } 
 	
+    @RequestMapping(value = "/{year}/{month}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Integer> getCrimesForDate(@PathVariable("year") String year, @PathVariable("month") String month) {
+        return tweetRepository.findTweetsDate(year, month);
+    } 
+    
 }
