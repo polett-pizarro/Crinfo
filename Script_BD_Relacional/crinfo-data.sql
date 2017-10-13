@@ -1,4 +1,4 @@
-USE cinfo;
+USE crinfo;
 
 SET AUTOCOMMIT=0;
 INSERT INTO commune VALUES 
