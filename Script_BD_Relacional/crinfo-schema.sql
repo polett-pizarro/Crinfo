@@ -6,7 +6,7 @@ USE crinfo;
 
 CREATE TABLE commune (
   id_commune  SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  nombre_commune varchar(255) NOT NULL,
+  name_commune varchar(255) NOT NULL,
   last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id_commune)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
