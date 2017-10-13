@@ -1,5 +1,8 @@
 package cl.citiaps.spring.backend.rest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,18 +29,18 @@ public class TweetService {
     @Autowired
     private TweetRepository tweetRepository;
     
-    
+    /*
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Tweet> getAllCrimes() {
         return tweetRepository.findAll();
-    }
+    }*/
     
-    /*
+    
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List getTopCommunes() {
+    public Iterable<HashMap<String,Integer>> getTopCommunes() {
         return tweetRepository.findTopCommune();
-    }    */
+    }   
 	
 }

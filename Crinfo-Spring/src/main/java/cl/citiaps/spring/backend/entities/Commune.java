@@ -23,8 +23,8 @@ public class Commune implements Serializable {
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
 
-	@Column(name="nombre_commune")
-	private String nombreCommune;
+	@Column(name="name_commune")
+	private String nameCommune;
 
 	//bi-directional many-to-one association to Tweet
 	@OneToMany(mappedBy="commune")
@@ -49,12 +49,12 @@ public class Commune implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public String getNombreCommune() {
-		return this.nombreCommune;
+	public String getNameCommune() {
+		return this.nameCommune;
 	}
 
-	public void setNombreCommune(String nombreCommune) {
-		this.nombreCommune = nombreCommune;
+	public void setNombreCommune(String nameCommune) {
+		this.nameCommune = nameCommune;
 	}
 
 	public List<Tweet> getTweets() {
