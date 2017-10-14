@@ -73,6 +73,25 @@
                   </ul>
               </div>
           </div>
+          <div class="pull-right">
+              <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                      DELITOS
+                      <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu pull-right" role="menu">
+                      <li><a href="Graph/{2017}"> Delito 1</a>
+                      </li>
+                      <li><a href="#"> Delito 2</a>
+                      </li>
+                      <li><a href="#"> Delito 3</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li><a href="#">Todos los delitos </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
       </div>
     	<svg width="1000" height="500"></svg>
     </div>

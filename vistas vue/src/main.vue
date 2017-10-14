@@ -38,7 +38,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="row">
-                                <p>Aqui va la mision y vision de nuestro equipo de trabajao</p>
+                                <p>Para el gobierno, las municipalidades, la Paz Ciudadana y/o algún político, quienes tienen la necesidad de saber la apreciación que tiene la sociedad respecto de la delincuencia, el CRINFO (Cime Information) es una aplicación web que brinda estadísticas de las reacciones que tiene la sociedad respecto de la delincuencia. </p>
                             </div>
                             <!-- /.row -->
                         </div>
