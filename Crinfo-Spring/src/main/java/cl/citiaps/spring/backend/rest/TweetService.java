@@ -36,16 +36,21 @@ public class TweetService {
         return tweetRepository.findAll();
     }
     
-    @RequestMapping(value = "/TopComunas", method = RequestMethod.GET)
+    @RequestMapping(value = "/TopCommunes", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<HashMap<String,Integer>> getTopCommunes() {
         return tweetRepository.findTopCommune();
     } 
 	
+    @RequestMapping(value = "/{year}/{month}", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getCrimesForDateCrime(@PathVariable("year") String year, @PathVariable("month") String month) {
+        return tweetRepository.findTweetsDate(year, month);
+    }  
     
     @RequestMapping(value = "/{year}/{month}/{crime}", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Integer> getCrimesForDateCrime(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("crime") Integer crime) {
+    public Integer getCrimesForDateCrime(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("crime") Integer crime) {
         return tweetRepository.findTweetsDateCrime(year, month, crime);
     }     
     
