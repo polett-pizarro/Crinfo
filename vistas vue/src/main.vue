@@ -54,7 +54,7 @@
                       <!-- /.panel-heading -->
                       <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-striped">
+                                 <table class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
                                             <th>Pos.</th>
@@ -63,20 +63,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1.-</td>
-                                            <td>"Lanzaso"</td>
-                                            <td>521</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2.-</td>
-                                            <td>Robo con intimidacion</td>
-                                            <td>442</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3.-</td>
-                                            <td>Amenazar</td>
-                                            <td>286</td>
+                                        <tr v-for="u,i in TopCrime">
+                                            <td>{{i+1}}.-</td>
+                                            <td>{{u[0]}}</td>
+                                            <td>{{u[1]}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -84,7 +74,7 @@
                             <!-- /.table-responsive -->
                       </div>
                     </div>
-                    
+
 
                     <div class="panel panel-default">
                       <div class="panel-heading">
@@ -102,20 +92,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1.-</td>
-                                            <td>Puente Alto</td>
-                                            <td>231</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2.-</td>
-                                            <td>Maipú</td>
-                                            <td>100</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3.-</td>
-                                            <td>La Pintana</td>
-                                            <td>86</td>
+                                        <tr v-for="u,i in TopCommune">
+                                            <td>{{i+1}}.-</td>
+                                            <td>{{u[0]}}</td>
+                                            <td>{{u[1]}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -147,7 +127,36 @@
 </template>
 <script>
   export default{
+     data(){
+        var TopCommune;
+        var TopCrime;
+        return{
+            TopCommune:[],
+            TopCrime:[]
+        }
+    },
+
     mounted: function(){
+
+        this.$http.get('http://localhost:8082/crinfo/TopCommunes')
+    .then(response=>{
+       // get body data
+      this.TopCommune = response.body;
+      console.log(this.TopCommune);
+    }, response=>{
+       // error callback
+       console.log('error cargando lista');
+    });
+    this.$http.get('http://localhost:8082/crinfo/TopCrime')
+    .then(response=>{
+       // get body data
+      this.TopCrime = response.body;
+      console.log(this.TopCrime);
+    }, response=>{
+       // error callback
+       console.log('error cargando lista');
+    });
+
       var month = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre",""]
       var data = [30, 86, 168, 281, 303, 365];
 
