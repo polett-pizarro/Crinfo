@@ -3,7 +3,9 @@ import VueRouter from 'vue-router';
 import Index from './Index.vue';
 import VueResource from 'vue-resource';
 //cada ves que se agrege una nuevo .vue
+import Main from "./main.vue"
 import Graficos from "./graficos.vue";
+import Ma from "./ma.vue";
 
 //require("../scss/font-awesome.scss");
 
@@ -23,7 +25,9 @@ Vue.use(VueResource);
 
 const routes = [
   { path: '/index', alias: '/', component: Index},
-  { path:'/graph', component: Graficos},
+  { path:'/Main', component: Main},
+  { path: '/Graph', component: Graficos},
+  { path:'/ma', component: Ma},
   //lo mismo que lo anterior para agregar rutas
   //{path:'/actors2', component: Actors2}
 ]

@@ -1,7 +1,7 @@
 <!-- Template es la parte de la vista-->
 <template>
 <div class="center">
-  <h2>{{title}}</h2>
+  <h1><font color="black">{{title}}</font></h1>
     <p>
       CRINFO - Crime Information
     </p>

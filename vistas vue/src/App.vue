@@ -18,16 +18,16 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="#/graph"><i class="fa fa-tachometer" aria-hidden="true"></i> VISTA PRINCIPAL</a>
+                        <a href="#/Main"><i class="fa fa-tachometer" aria-hidden="true"></i> VISTA PRINCIPAL</a>
                     </li>
                     <li>
-                        <a href="#/"><i class="fa fa-bar-chart" aria-hidden="true"></i> GRAFICOS</a>
+                        <a href="#/Graph"><i class="fa fa-bar-chart" aria-hidden="true"></i> GRAFICOS</a>
                     </li>
                     <li>
                         <a href="#/"><i class="fa fa-map-marker" aria-hidden="true"></i> MAPA DE CALOR</a>
                     </li>
                     <li>
-                        <a href="#/"><i class="fa fa-pie-chart" aria-hidden="true"></i> MAS COSAS</a>
+                        <a href="#/Ma"><i class="fa fa-pie-chart" aria-hidden="true"></i> MAS COSAS</a>
                     </li>
                 </ul>
             </div>
