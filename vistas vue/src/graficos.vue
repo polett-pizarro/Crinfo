@@ -104,18 +104,18 @@
     data: function(){
       return{
         data : [
-        			{letter:'Enero', frequency: .123},
-        			{letter:'Febrero', frequency: .321},
-        			{letter:'Marzo', frequency: .312},
-        			{letter:'Abril', frequency: .213},
-        			{letter:'Mayo', frequency: .132},
-        			{letter:'Junio', frequency: .412},
-        			{letter:'Julio', frequency: .312},
-        			{letter:'Agosto', frequency: .231},
-        			{letter:'Septiembre', frequency: .100},
-        			{letter:'Octubre', frequency: .200},
-        			{letter:'Noviembre', frequency: .300},
-        			{letter:'Diciembre', frequency: .940}
+        			{letter:'Enero', frequency: 0},
+        			{letter:'Febrero', frequency: 0},
+        			{letter:'Marzo', frequency: 0},
+        			{letter:'Abril', frequency: 0},
+        			{letter:'Mayo', frequency: 0},
+        			{letter:'Junio', frequency: 0},
+        			{letter:'Julio', frequency: 0},
+        			{letter:'Agosto', frequency: 0},
+        			{letter:'Septiembre', frequency: 0},
+        			{letter:'Octubre', frequency: 0},
+        			{letter:'Noviembre', frequency: 0},
+        			{letter:'Diciembre', frequency: 0}
         ]
       }
     },
@@ -162,6 +162,92 @@
     },
     mounted: function(){
       this.cargar(this.data);
+      var total;
+      this.$http.get('http://localhost:8082/crinfo/totalTs').then(
+        salida=>{
+          total=salida.body;
+          this.$http.get('http://localhost:8082/crinfo/month/01')
+            .then(response=>{
+               // get body data
+              this.data[0].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));
+              return this.data;
+            }, response=>{
+               // error callback
+               console.log('error cargando ');
+            });
+            this.$http.get('http://localhost:8082/crinfo/month/02')
+        .then(response=>{
+               // get body data
+              this.data[1].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/03')
+        .then(response=>{
+               // get body data
+              this.data[2].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/04')
+        .then(response=>{
+               // get body data
+              this.data[3].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/05')
+        .then(response=>{
+               // get body data
+              this.data[4].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });this.$http.get('http://localhost:8082/crinfo/month/06')
+        .then(response=>{
+               // get body data
+              this.data[5].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/07')
+        .then(response=>{
+               // get body data
+              this.data[6].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/08')
+        .then(response=>{
+               // get body data
+              this.data[7].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/09')
+        .then(response=>{
+               // get body data
+              this.data[8].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/10')
+        .then(response=>{
+               // get body data
+              this.data[9].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/11')
+        .then(response=>{
+               // get body data
+              this.data[10].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        this.$http.get('http://localhost:8082/crinfo/month/12')
+        .then(response=>{
+               // get body data
+              this.data[11].frequency = (response.body/total);this.cargar(this.data);
+              console.log((response.body/total));return this.data;
+        });
+        }
+      );
+
+      
+        console.log("EMPEZo");
+        this.cargar(this.data);
+        console.log("ZALIO", 2/3);
     }
 
 

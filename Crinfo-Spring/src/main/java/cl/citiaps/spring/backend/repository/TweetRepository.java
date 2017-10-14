@@ -41,6 +41,14 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 			"UNION ALL SELECT count(id_tweet), 2 FROM tweet" +
 			"WHERE tweet.publication_date LIKE CONCAT(:year, '-02%')", nativeQuery=true)
 	public Iterable<Integer> findTweetsDateAll(@Param("year") String year);
+
+	@Query(value = "SELECT count(id_tweet) FROM tweet " + 
+			"WHERE tweet.publication_date LIKE CONCAT('%-',:month,'-%')",nativeQuery=true)
+	public Integer findTweetsGeneralMonth(@Param("month") String month);
+
+	@Query(value = "SELECT count(id_tweet) FROM tweet",nativeQuery=true)
+	public Integer countTweets();
+
 }
 
 /*UNION " +
