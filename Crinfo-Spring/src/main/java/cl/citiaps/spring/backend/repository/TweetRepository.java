@@ -36,4 +36,41 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 			nativeQuery=true)
 	public Integer findTweetsDateCrime(@Param("year") String year, @Param("month") String month, @Param("crime") Integer crime);	
 	
+	@Query(value = "SELECT count(id_tweet), 1 FROM tweet " + 
+			"WHERE tweet.publication_date LIKE CONCAT(:year, '-01%')" +
+			"UNION ALL SELECT count(id_tweet), 2 FROM tweet" +
+			"WHERE tweet.publication_date LIKE CONCAT(:year, '-02%')", nativeQuery=true)
+	public Iterable<Integer> findTweetsDateAll(@Param("year") String year);
+	
+	@Query(value = "SELECT count(id_tweet) FROM tweet " + 
+			"WHERE tweet.publication_date LIKE CONCAT('%-',:month,'-%')",nativeQuery=true)
+	public Integer findTweetsGeneralMonth(@Param("month") String month);
+	
+	@Query(value = "SELECT count(id_tweet) FROM tweet",nativeQuery=true)
+	public Integer countTweets();
+			
 }
+			/*UNION " +
+			-			"SELECT count(id_tweet), 2 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year,'-02%')" +
+			-    		"UNION " +
+			-			"SELECT count(id_tweet),3 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-03%')  UNION " +
+			-			"SELECT count(id_tweet),4 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-04%')   UNION " +
+			-			"SELECT count(id_tweet),5 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-05%')   UNION " +
+			-			"SELECT count(id_tweet),6 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-06%' )  UNION " +
+			-			"SELECT count(id_tweet),7 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-07%')   UNION " +
+			-			"SELECT count(id_tweet),8 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-08%' )  UNION " +
+			-			"SELECT count(id_tweet),9 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-09%' ) UNION " +
+			-			"SELECT count(id_tweet),10 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-10%' )  UNION " +
+			-			"SELECT count(id_tweet),11 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-11%' )  UNION " +
+			-			"SELECT count(id_tweet),12 FROM tweet" +
+			-			"WHERE tweet.publication_date LIKE CONCAT(:year, '-12%');"*/
