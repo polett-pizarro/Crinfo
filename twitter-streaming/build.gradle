@@ -30,14 +30,5 @@ dependencies {
     compile group: 'org.apache.lucene', name: 'lucene-core', version: '7.0.1'
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '7.0.1'
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: '7.0.1'
-    compile 'mysql:mysql-connector-java'
-    compile("org.springframework.boot:spring-boot-starter-data-rest")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-test")
-    compile("org.springframework.boot:spring-boot-starter-web")
-    runtime("org.springframework.boot:spring-boot-starter-tomcat")
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    compile 'mysql:mysql-connector-java'
 }
 
