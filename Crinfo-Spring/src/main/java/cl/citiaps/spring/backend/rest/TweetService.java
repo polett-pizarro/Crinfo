@@ -41,12 +41,7 @@ public class TweetService {
     public Iterable<HashMap<String,Integer>> getTopCommunes() {
         return tweetRepository.findTopCommune();
     } 
-	@RequestMapping(value = "/{year}", method = RequestMethod.GET)
-    @ResponseBody
-    public Iterable<Integer> getCrimesForDateCrimeAll(@PathVariable("year") String year) {
-        return tweetRepository.findTweetsDateAll(year);
-    }  
-
+	
     @RequestMapping(value = "/{year}/{month}", method = RequestMethod.GET)
     @ResponseBody
     public Integer getCrimesForDateCrime(@PathVariable("year") String year, @PathVariable("month") String month) {
@@ -64,15 +59,5 @@ public class TweetService {
     public Iterable<HashMap<String,Integer>> getTopCrime() {
         return tweetRepository.findTopCrime();
     }
-
-    @RequestMapping(value="/month/{mes}",method =RequestMethod.GET)
-    @ResponseBody
-    public Integer getTweetsGeneralMonth(@PathVariable("mes") String mes){
-        return  tweetRepository.findTweetsGeneralMonth(mes);
-    }
-    @RequestMapping(value="/totalTs",method=RequestMethod.GET)
-    @ResponseBody
-    public Integer getCountTweets(){
-        return  tweetRepository.countTweets();
-    }
+ 
 }
