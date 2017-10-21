@@ -42,13 +42,31 @@ public class TweetService {
         return tweetRepository.findTopCommune();
     } 
 	
-    @RequestMapping(value = "/{year}/{month}", method = RequestMethod.GET)
+    @RequestMapping(value = "/0/{year}", method = RequestMethod.GET)
     @ResponseBody
-    public Integer getCrimesForDateCrime(@PathVariable("year") String year, @PathVariable("month") String month) {
-        return tweetRepository.findTweetsDate(year, month);
+    public Iterable<Tweet> getCrimesForYear(@PathVariable("year") String year) {
+        return tweetRepository.findTweetsYear(year);
     }  
     
-    @RequestMapping(value = "/{year}/{month}/{crime}", method = RequestMethod.GET)
+    @RequestMapping(value = "/1/{month}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Tweet> getCrimesForMonth(@PathVariable("month") String month) {
+        return tweetRepository.findTweetsMonth(month);
+    } 
+
+    @RequestMapping(value = "/2", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Tweet> getCrimesForMonth2() {
+        return tweetRepository.findTweetsMonth2();
+    } 
+
+    @RequestMapping(value = "/month", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<Integer,String>> getCrimesForMonth3() {
+        return tweetRepository.findTweetsMonth3();
+    } 
+
+    @RequestMapping(value = "/4/{year}/{month}/{crime}", method = RequestMethod.GET)
     @ResponseBody
     public Integer getCrimesForDateCrime(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("crime") Integer crime) {
         return tweetRepository.findTweetsDateCrime(year, month, crime);
