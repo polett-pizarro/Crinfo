@@ -1,4 +1,15 @@
+/twitter-streaming/src/main/resources/application.properties
 /vistas vue/vendor
 /vistas vue/node_modules/
 /Crinfo-Spring/src/main/resources/
+/twitter-streaming/src/.settings/
+/twitter-streaming/.settings/
+/twitter-streaming/.gradle/2.2.1/
+/Crinfo-Spring/src/main/resources/application.properties
+/twitter-streaming/.classpath
+/twitter-streaming/.gradle/4.1/
+/twitter-streaming/.project/
+/twitter-streaming/build/libs/twitter-streaming-1.0.jar
+/twitter-streaming/.settings/gradle/
+/twitter-streaming/.classpath
 
