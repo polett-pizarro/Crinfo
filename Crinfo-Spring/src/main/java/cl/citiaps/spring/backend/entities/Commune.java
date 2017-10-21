@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -57,7 +58,7 @@ public class Commune implements Serializable {
 		this.nameCommune = nameCommune;
 	}
 
-	public List<Tweet> getTweets() {
+	/*public List<Tweet> getTweets() {
 		return this.tweets;
 	}
 
@@ -77,6 +78,6 @@ public class Commune implements Serializable {
 		tweet.setCommune(null);
 
 		return tweet;
-	}
+	}*/
 
 }
