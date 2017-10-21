@@ -86,7 +86,7 @@ public class SearcherTweets {
 	public static void main(String[] args) {
 		
 		 String sexual = "abuso violacion penetracion abusador acosador tocamiento pornografia pedofilia pedofilo";
-		 String drogas = "drogas marihuana trafico narcotrafico narcotraficante psicoactivos cannabis cocaina coca jalar extasis heroina inhalante alucinogeno sobredosis";
+		 String drogas = "drogas marihuana trafico narcotrafico narcotraficante psicoactivos cannabis cocaina coca jalar extasis heroina inhalante alucinogeno sobredosis ";
 		 String delitosViolentos = "robar asalto hurto pistola disparos asesinato atraco asesino matar herido heridos delincuente muerte muertas robo asaltar";
 		 String intrafamiliar = "violencia amenaza castigo gritos pelea golpes moreton agresion maltrato insulto";
 		 String responsabilidadAdolecente = "sename SENAME chiquillo cabro";
@@ -96,7 +96,7 @@ public class SearcherTweets {
 	        while (Tok.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("/home/psykosoldierz/Escritorio/indexLucene","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
 	    		sTweets.search("1");
 	        }
 			System.out.println("______________________________________");
@@ -107,7 +107,7 @@ public class SearcherTweets {
 	        while (Tok2.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok2.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("/home/psykosoldierz/Escritorio/indexLucene","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra+"-"+"cola");
 	    		sTweets.search("2");
 	        }
 			System.out.println("______________________________________");
@@ -117,7 +117,7 @@ public class SearcherTweets {
 	        while (Tok3.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok3.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("/home/psykosoldierz/Escritorio/indexLucene","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
 	    		sTweets.search("3");
 	        }
 			System.out.println("______________________________________");
@@ -127,7 +127,7 @@ public class SearcherTweets {
 	        while (Tok4.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok4.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("/home/psykosoldierz/Escritorio/indexLucene","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
 	    		sTweets.search("4");
 	        }
 			System.out.println("______________________________________");
@@ -137,7 +137,7 @@ public class SearcherTweets {
 	        while (Tok5.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok5.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("/home/psykosoldierz/Escritorio/indexLucene","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
 	    		sTweets.search("5");
 	        }
 			System.out.println("______________________________________");

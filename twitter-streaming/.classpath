@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="lib" path="build/libs/twitter-streaming-1.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/psykosoldierz/Escritorio/proyecto-TBD/mongodb-driver-3.5.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="/home/psykosoldierz/Escritorio/lucene/lucene-7.0.1/queryparser/lucene-queryparser-7.0.1.jar"/>
-	<classpathentry kind="lib" path="/home/psykosoldierz/Escritorio/lucene/lucene-7.0.1/analysis/common/lucene-analyzers-common-7.0.1.jar"/>
-	<classpathentry kind="lib" path="/home/psykosoldierz/Escritorio/lucene/lucene-7.0.1/core/lucene-core-7.0.1.jar"/>
-	<classpathentry kind="lib" path="/home/psykosoldierz/Escritorio/lucene/lucene-7.0.1/demo/lucene-demo-7.0.1.jar"/>
-	<classpathentry kind="lib" path="/home/psykosoldierz/Escritorio/ProyectoCRINFO/Crinfo/jars/spring-data-mongodb-1.2.0.RELEASE.jar"/>
-	<classpathentry kind="output" path="build/classes/java/main"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>

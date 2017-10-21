@@ -160,9 +160,11 @@ public class TwitterStreaming {
 		FilterQuery fq = new FilterQuery();
 
 		fq.track(keywords.toArray(new String[0]));
-
-		this.twitterStream.addListener(listener);
-		this.twitterStream.filter(fq);
+		fq.language(new String[]{"es"});
+		fq.locations(new double[][]
+			{new double[]{-34.114048, -71.338107},
+             new double[]{-33.033965, -69.805514
+                }});
 	}
 	
 	public static void main(String[] args) {

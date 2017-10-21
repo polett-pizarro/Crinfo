@@ -93,7 +93,7 @@ public class IndexTweets {
 	
 	
 	public static void main(String[] args) throws IOException {
-		IndexTweets iTweets = new IndexTweets("/home/psykosoldierz/Escritorio/indexLucene");
+		IndexTweets iTweets = new IndexTweets("../indexaciones");
 		iTweets.idexation("TwitterDelincuencia","ColeccionTweetsDelincuencia");
 		
 	}
