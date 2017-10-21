@@ -3,6 +3,7 @@ package cl.citiaps.spring.backend.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**

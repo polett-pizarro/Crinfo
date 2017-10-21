@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the crime database table.
@@ -60,7 +61,7 @@ public class Crime implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public List<Tweet> getTweets() {
+	/*public List<Tweet> getTweets() {
 		return this.tweets;
 	}
 
@@ -102,6 +103,6 @@ public class Crime implements Serializable {
 		wordBag.setCrime(null);
 
 		return wordBag;
-	}
+	}*/
 
 }

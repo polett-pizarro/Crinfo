@@ -20,7 +20,7 @@ import cl.citiaps.spring.backend.repository.CommuneRepository;
 
 @CrossOrigin//se debe poner el puerto que ustedes usan en Vue;
 @RestController  
-@RequestMapping("/")
+@RequestMapping("/Commune")
 public class CommuneService {
 	
 	@Autowired
@@ -30,16 +30,16 @@ public class CommuneService {
     @Autowired
     private TweetRepository tweetRepository;
     
-    @RequestMapping(value = "/Commune", method = RequestMethod.GET)
+    @RequestMapping( method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Commune> getAllCommune() {
         return communeRepository.findAll();
     }
    
     
-    @RequestMapping(value = "/Commune/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public  Actor findOne(@PathVariable("id") Integer id) {
+    public  Commune findOne(@PathVariable("id") Integer id) {
         return communeRepository.findOne(id);
     }
     
