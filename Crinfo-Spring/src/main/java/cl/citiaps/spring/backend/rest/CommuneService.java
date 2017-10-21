@@ -30,6 +30,7 @@ public class CommuneService {
     @Autowired
     private TweetRepository tweetRepository;
     
+
     @RequestMapping( method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Commune> getAllCommune() {

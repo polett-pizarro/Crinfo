@@ -86,5 +86,11 @@ public class TweetService {
     public Integer getCountTweets(){
          return  tweetRepository.countTweets();
     }
+
+    @RequestMapping(value="/month/crime/{id}",method=RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<Integer,String>> getTweetsCrimeMonth(@PathVariable("id") Integer id){
+        return tweetRepository.findTweetsCrimeMonth(id);
+    }
  
 }
