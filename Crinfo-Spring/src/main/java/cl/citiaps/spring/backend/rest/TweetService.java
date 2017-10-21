@@ -59,16 +59,10 @@ public class TweetService {
         return tweetRepository.findTweetsMonth(month);
     } 
 
-    @RequestMapping(value = "/2", method = RequestMethod.GET)
-    @ResponseBody
-    public Iterable<Tweet> getCrimesForMonth2() {
-        return tweetRepository.findTweetsMonth2();
-    } 
-
     @RequestMapping(value = "/month", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<HashMap<Integer,String>> getCrimesForMonth3() {
-        return tweetRepository.findTweetsMonth3();
+    public Iterable<HashMap<Integer,String>> getCrimesForMonth2() {
+        return tweetRepository.findTweetsMonth2();
     } 
 
     @RequestMapping(value = "/4/{year}/{month}/{crime}", method = RequestMethod.GET)
