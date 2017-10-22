@@ -31,7 +31,7 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 	public Iterable<Tweet> findTweetsYear(@Param("year") String year);
 	
 	@Query(value = "SELECT * FROM tweet " + 
-		"WHERE tweet.publication_date LIKE CONCAT('____%',:month,'_%')",
+		"WHERE tweet.publication_date LIKE CONCAT('%-',:month,'-%')",
 		nativeQuery=true)
 	public Iterable<Tweet> findTweetsMonth( @Param("month") String month);
 
@@ -64,7 +64,6 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 	public Integer findTweetsDateCrime(@Param("year") String year, @Param("month") String month, @Param("crime") Integer crime);	
 
 
-	
 	@Query(value = "SELECT count(id_tweet), 1 FROM tweet " + 
 		"WHERE tweet.publication_date LIKE CONCAT(:year, '-01%')" +
 		"UNION ALL SELECT count(id_tweet), 2 FROM tweet" +
@@ -78,5 +77,8 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 	@Query(value = "SELECT count(id_tweet) FROM tweet",nativeQuery=true)
 	public Integer countTweets();
 
+	@Query(value = "SELECT SUBSTRING(tweet.publication_date, 6, 2), tweet.id_crime, count(tweet.id_crime) FROM tweet " +
+			"WHERE tweet.publication_date LIKE CONCAT(:year,'%')" +
+			"GROUP BY (SUBSTRING(tweet.publication_date, 6, 2)), tweet.id_crime",nativeQuery=true)
+	public Iterable<HashMap<String, HashMap<Integer, Integer>>> findTweetsYearMonthsCrime(@Param("year") String year);
 }
-			
