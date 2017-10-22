@@ -41,10 +41,10 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 	public  Iterable<HashMap<Integer,String>> findTweetsMonth2();
 
 	@Query(value="SELECT COUNT(SUBSTRING(tweet.publication_date, 6, 2)), "+
-		"SUBSTRING(tweet.publication_date, 6, 2) FROM tweet, crime " +
-		"WHERE tweet.id_crime=crime.id_crime and crime.id_crime= 1" +
+		"SUBSTRING(tweet.publication_date, 6, 2) FROM tweet " +
+		"WHERE tweet.id_crime=cast( :id as binary)" +
 		"GROUP BY (SUBSTRING(tweet.publication_date, 6, 2))",nativeQuery=true)
-	public Iterable<HashMap<Integer,String>> findTweetsCrimeMonth(@Param("id") Integer id);
+	public Iterable<HashMap<Integer,String>> findTweetsCrimeMonth(@Param("id") String id);
 
 	
 

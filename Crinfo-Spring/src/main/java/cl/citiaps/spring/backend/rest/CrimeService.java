@@ -42,6 +42,12 @@ public class CrimeService {
     public  Crime findOne(@PathVariable("id") Integer id) {
         return crimeRepository.findOne(id);
     }
+
+    @RequestMapping(value="/conTweets", method=RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Crime> getCrimeConTweets(){
+        return crimeRepository.findCrimenConTweets();
+    }
     
     
  

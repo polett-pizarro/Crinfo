@@ -8,4 +8,9 @@ import cl.citiaps.spring.backend.entities.Crime;
 
 public interface CrimeRepository extends PagingAndSortingRepository<Crime, Integer> {
 
+	@Query(value="SELECT crime.* FROM tweet, crime " + 
+			"where tweet.id_crime=crime.id_crime " + 
+			"group by tweet.id_crime",nativeQuery=true)
+	public Iterable<Crime> findCrimenConTweets();
+	
 }
