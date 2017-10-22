@@ -41,10 +41,9 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 	public  Iterable<HashMap<Integer,String>> findTweetsMonth2();
 
 	@Query(value="SELECT COUNT(SUBSTRING(tweet.publication_date, 6, 2)), "+
-		"SUBSTRING(tweet.publication_date, 6, 2) FROM tweet " +
-		"WHERE tweet.id_crime=cast( :id as binary)" +
-		"GROUP BY (SUBSTRING(tweet.publication_date, 6, 2))", nativeQuery=true)
-	public Iterable<HashMap<Integer,String>> findTweetsCrimeMonth(@Param("id") String id);
+		"SUBSTRING(tweet.publication_date, 6, 2),tweet.id_crime FROM tweet " +
+		"GROUP BY (SUBSTRING(tweet.publication_date, 6, 2)), tweet.id_crime", nativeQuery=true)
+	public Iterable<HashMap<Integer,HashMap<String,Integer>>> findTweetsCrimeMonthAll();
 
 	@Query(value = "SELECT COUNT(SUBSTRING(tweet.publication_date, 6, 2)), SUBSTRING(tweet.publication_date, 6, 2) FROM tweet " +
 		"WHERE tweet.publication_date LIKE CONCAT(:year,'%')" +
@@ -81,4 +80,17 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 			"WHERE tweet.publication_date LIKE CONCAT(:year,'%')" +
 			"GROUP BY (SUBSTRING(tweet.publication_date, 6, 2)), tweet.id_crime",nativeQuery=true)
 	public Iterable<HashMap<String, HashMap<Integer, Integer>>> findTweetsYearMonthsCrime(@Param("year") String year);
+
+	@Query(value="SELECT substring(tweet.publication_date,1,4),SUBSTRING(tweet.publication_date, 6, 2), " +
+			" tweet.id_crime, count(tweet.id_crime) FROM tweet" + 
+			" GROUP BY (SUBSTRING(tweet.publication_date, 6, 2)), tweet.id_crime, " + 
+			"substring(tweet.publication_date,1,4) order by substring(tweet.publication_date,1,4), " + 
+			"SUBSTRING(tweet.publication_date, 6, 2),tweet.id_crime", nativeQuery=true)
+	public Iterable<HashMap<String, HashMap<String, HashMap<Integer, Integer>>>>  findTweetsYearMonthsCrimeAll();
+
+	@Query(value="SELECT COUNT(SUBSTRING(tweet.publication_date, 6, 2)), SUBSTRING(tweet.publication_date, 6, 2), " +
+		"(SUBSTRING(tweet.publication_date, 1, 4)) FROM tweet " +
+		"GROUP BY (SUBSTRING(tweet.publication_date, 6, 2)),(SUBSTRING(tweet.publication_date, 1, 4)) " + 
+		"Order by (SUBSTRING(tweet.publication_date, 1, 4)), (SUBSTRING(tweet.publication_date, 6, 2))", nativeQuery=true)
+	public Iterable<HashMap<Integer,HashMap<String, String>>> findTweetsYearMonthsAll();
 }

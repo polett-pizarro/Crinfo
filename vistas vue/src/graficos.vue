@@ -80,6 +80,7 @@
                       <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu pull-right" role="menu">
+
                       <li><a href="Graph/{2017}"> Delito 1</a>
                       </li>
                       <li><a href="#"> Delito 2</a>
@@ -102,6 +103,7 @@
 <script>
   export default{
     data: function(){
+      var dalitos;
       return{
         data : [
 				      {letter:'Enero', frequency: 0},
@@ -116,7 +118,22 @@
         			{letter:'Octubre', frequency: 0},
         			{letter:'Noviembre', frequency: 0},
         			{letter:'Diciembre', frequency: 0}
-        ]
+        ],
+        data1 : [
+              {letter:'Enero', frequency: 0},
+              {letter:'Febrero', frequency: 0},
+              {letter:'Marzo', frequency: 0},
+              {letter:'Abril', frequency: 0},
+              {letter:'Mayo', frequency: 0},
+              {letter:'Junio', frequency: 0},
+              {letter:'Julio', frequency: 0},
+              {letter:'Agosto', frequency: 0},
+              {letter:'Septiembre', frequency: 0},
+              {letter:'Octubre', frequency: 0},
+              {letter:'Noviembre', frequency: 0},
+              {letter:'Diciembre', frequency: 0}
+        ],
+        delitos: []
       }
     },
     methods:{
@@ -158,96 +175,181 @@
           .attr("y", function(d) { return y(d.frequency); })
           .attr("width", x.bandwidth())
           .attr("height", function(d) { return height - y(d.frequency); });
-      }
-    },
-    mounted: function(){
-      this.cargar(this.data);
-			var total;
-    	this.$http.get('http://localhost:8082/crinfo/totalTs').then(
-        salida=>{
-          total=salida.body;
-          this.$http.get('http://localhost:8082/crinfo/month/01')
-            .then(response=>{
-               // get body data
-              this.data[0].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));
-              return this.data;
-            }, response=>{
-               // error callback
-               console.log('error cargando ');
-            });
-            this.$http.get('http://localhost:8082/crinfo/month/02')
-        .then(response=>{
-               // get body data
-              this.data[1].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/03')
-        .then(response=>{
-               // get body data
-              this.data[2].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/04')
-        .then(response=>{
-               // get body data
-              this.data[3].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/05')
-        .then(response=>{
-               // get body data
-              this.data[4].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });this.$http.get('http://localhost:8082/crinfo/month/06')
-        .then(response=>{
-               // get body data
-              this.data[5].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/07')
-        .then(response=>{
-               // get body data
-              this.data[6].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/08')
-        .then(response=>{
-               // get body data
-              this.data[7].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/09')
-        .then(response=>{
-               // get body data
-              this.data[8].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/10')
-        .then(response=>{
-               // get body data
-              this.data[9].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/11')
-        .then(response=>{
-               // get body data
-              this.data[10].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
-        this.$http.get('http://localhost:8082/crinfo/month/12')
-        .then(response=>{
-               // get body data
-              this.data[11].frequency = (response.body/total);this.cargar(this.data);
-              console.log((response.body/total));return this.data;
-        });
+      },
+      crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
+
+         var newData=[
+              {letter:'Enero', frequency: 0},
+              {letter:'Febrero', frequency: 0},
+              {letter:'Marzo', frequency: 0},
+              {letter:'Abril', frequency: 0},
+              {letter:'Mayo', frequency: 0},
+              {letter:'Junio', frequency: 0},
+              {letter:'Julio', frequency: 0},
+              {letter:'Agosto', frequency: 0},
+              {letter:'Septiembre', frequency: 0},
+              {letter:'Octubre', frequency: 0},
+              {letter:'Noviembre', frequency: 0},
+              {letter:'Diciembre', frequency: 0}
+        ];
+        let sum=0;
+        let j;
+        for (var i =0; i < GranRespuesta.length; i++) {
+          if(GranRespuesta[i][0]==anio){
+            if(GranRespuesta[i][2]==idCrimen){
+              console.log(j, GranRespuesta[i]);
+              j=parseInt(GranRespuesta[i][1]);
+              newData[j-1].frequency=GranRespuesta[i][3];
+              sum=sum+GranRespuesta[i][3];
+            }
+          }
         }
-      );
+        console.log("\n");
+        for (var i = 0; i < newData.length; i++) {
+          if(sum==0){
+            break;
+          }
+          newData[i].frequency=newData[i].frequency / sum;
+          console.log(newData[i]);
+        }
+        console.log(newData);
+        return newData;
+      },
+      crearDataAnio:function(GranRespuesta,anio){
+         var newData=[
+              {letter:'Enero', frequency: 0},
+              {letter:'Febrero', frequency: 0},
+              {letter:'Marzo', frequency: 0},
+              {letter:'Abril', frequency: 0},
+              {letter:'Mayo', frequency: 0},
+              {letter:'Junio', frequency: 0},
+              {letter:'Julio', frequency: 0},
+              {letter:'Agosto', frequency: 0},
+              {letter:'Septiembre', frequency: 0},
+              {letter:'Octubre', frequency: 0},
+              {letter:'Noviembre', frequency: 0},
+              {letter:'Diciembre', frequency: 0}
+        ];
+        let sum=0;
+        let j;
+
+        for (var i =0; i < GranRespuesta.length; i++) {
+          if(GranRespuesta[i][2]==anio){
+              console.log(j, GranRespuesta[i]);
+              j=parseInt(GranRespuesta[i][1]);
+              newData[j-1].frequency=GranRespuesta[i][0];
+              sum=sum+GranRespuesta[i][0];
+            }
+        }
+
+        for (var i = 0; i < newData.length; i++) {
+          if(sum==0){
+            break;
+          }
+          newData[i].frequency=newData[i].frequency / sum;
+          console.log(newData[i]);
+        }
+        console.log(newData);
+        return newData;
+      },
+      crearDataCrimen:function(GranRespuesta,id){
+         var newData=[
+              {letter:'Enero', frequency: 0},
+              {letter:'Febrero', frequency: 0},
+              {letter:'Marzo', frequency: 0},
+              {letter:'Abril', frequency: 0},
+              {letter:'Mayo', frequency: 0},
+              {letter:'Junio', frequency: 0},
+              {letter:'Julio', frequency: 0},
+              {letter:'Agosto', frequency: 0},
+              {letter:'Septiembre', frequency: 0},
+              {letter:'Octubre', frequency: 0},
+              {letter:'Noviembre', frequency: 0},
+              {letter:'Diciembre', frequency: 0}
+        ];
+        let sum=0;
+        let j;
+
+        for (var i =0; i < GranRespuesta.length; i++) {
+          if(GranRespuesta[i][2]==id){
+              console.log(j, GranRespuesta[i]);
+              j=parseInt(GranRespuesta[i][1]);
+              newData[j-1].frequency=GranRespuesta[i][0];
+              sum=sum+GranRespuesta[i][0];
+            }
+        }
+
+        for (var i = 0; i < newData.length; i++) {
+          if(sum==0){
+            break;
+          }
+          newData[i].frequency=newData[i].frequency / sum;
+          console.log(newData[i]);
+        }
+        console.log(newData);
+        return newData;
+      }
 
 
-        console.log("EMPEZo");
-        this.cargar(this.data);
-        console.log("ZALIO", 2/3);
+
+    },
+    
+    mounted: function(){
+      //this.cargar(this.data);
+			var totalG=0;
+      var GranRespuestaCrimenAnio;
+      var RespuestaAnio;
+      var RespuestaCrimen;
+
+      this.$http.get('http://localhost:8082/crinfo/Crime/conTweets').then(
+        respuesta=>{
+          this.delitos=respuesta.body;
+          //location.reload();
+          console.log("listo delitos");
+        },error=>{
+          console.log(error);
+      });
+      this.$http.get('http://localhost:8082/crinfo/month').then(
+        salida=>{
+          let auxs=salida.body;
+          for (var i = auxs.length - 1; i >= 0; i--) {
+            totalG=totalG+auxs[i][0];
+          }
+          for (i = auxs.length - 1; i >= 0; i--) {
+            this.data[i].frequency=auxs[i][0]/totalG;
+          }
+          this.cargar(this.data);
+          console.log("total listo");
+      });
+      this.$http.get('http://localhost:8082/crinfo/months/anio/crime').then(
+        salida=>{
+          console.log("AAAAS");
+          GranRespuestaCrimenAnio=salida.body;
+          //this.crearDataAnioCrimen(GranRespuestaCrimenAnio,'2017',1); //cual quier año e id de crimen
+        },error=>{
+          console.log("si hay error");
+          console.log(error);
+        });
+
+      this.$http.get('http://localhost:8082/crinfo/months/anio').then(
+        salida=>{
+          console.log("AAAAS");
+          RespuestaAnio=salida.body;
+          //this.crearDataAnio(RespuestaAnio,'2013'); cualquier anio
+        },error=>{
+          console.log("si hay error");
+          console.log(error);
+        });
+      this.$http.get('http://localhost:8082/crinfo/month/crime').then(
+        salida=>{
+          console.log("AAAAS");
+          RespuestaCrimen=salida.body;
+          //this.crearDataCrimen(RespuestaCrimen,1); 
+        },error=>{
+          console.log("si hay error");
+          console.log(error);
+        });
+        
     }
 
 
