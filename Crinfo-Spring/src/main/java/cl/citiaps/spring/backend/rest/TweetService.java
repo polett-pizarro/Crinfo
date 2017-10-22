@@ -92,5 +92,11 @@ public class TweetService {
     public Iterable<HashMap<Integer,String>> getTweetsCrimeMonth(@PathVariable("id") String id){
         return tweetRepository.findTweetsCrimeMonth(id);
     }
+
+    @RequestMapping(value = "/months/{year}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<Integer,String>> findTweetsYearMonths(@PathVariable("year") String year){
+        return tweetRepository.findTweetsYearMonths(year);
+    }
  
 }
