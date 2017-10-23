@@ -13,7 +13,7 @@ public class Tweet {
 	private String month;
 	private String year;
 	private String time;
-	private String crimme;
+	private String commune;
 	
 	
 	public Tweet(Document tweet)
@@ -26,6 +26,7 @@ public class Tweet {
 		this.setMonth(tweet.getString("month"));
 		this.setYear(tweet.getString("year"));
 		this.setTime(tweet.getString("hour"));
+		this.setCommune(tweet.getString("commune"));
 	}
 
 
@@ -99,12 +100,15 @@ public class Tweet {
 	}
 
 
-	public String getCrimme() {
-		return crimme;
+	
+
+
+	public String getCommune() {
+		return commune;
 	}
 
 
-	public void setCrimme(String crimme) {
-		this.crimme = crimme;
+	public void setCommune(String commune) {
+		this.commune = commune;
 	}
 }

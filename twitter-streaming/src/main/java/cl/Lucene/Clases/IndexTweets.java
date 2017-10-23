@@ -74,7 +74,8 @@ public class IndexTweets {
 		         doc.add(new StringField("month", tw.getMonth() , Field.Store.YES));
 		         doc.add(new StringField("year",tw.getYear() , Field.Store.YES));
 		         doc.add(new StringField("time", tw.getTime(), Field.Store.YES));
-		         
+		         doc.add(new StringField("commune", tw.getCommune(), Field.Store.YES));
+
 		         this.iWriter.addDocument(doc);
 		         System.out.println("Idenxado Correctamente");
 		      }
@@ -93,8 +94,8 @@ public class IndexTweets {
 	
 	
 	public static void main(String[] args) throws IOException {
-		IndexTweets iTweets = new IndexTweets("../indexaciones");
-		iTweets.idexation("TwitterDelincuencia","ColeccionTweetsDelincuencia");
+		IndexTweets iTweets = new IndexTweets("../indice_invertido_tweets");
+		iTweets.idexation("Crinfo","Tweets");
 		
 	}
 }

@@ -2,6 +2,9 @@ package cl.Lucene.Clases;
 
 
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -61,21 +64,38 @@ public class SearcherTweets {
 			 //System.out.println("no existe conicidencia");
 		 }
 		 else{
+			 String sDriver = "com.mysql.jdbc.Driver";
+			 String sURL = "jdbc:mysql://localhost:3306/crinfo?autoReconnect=true&useSSL=false";
+			 Connection con = null;
+			 Class.forName(sDriver).newInstance(); 
+			 con = DriverManager.getConnection(sURL,"root","gramschmidt");
+			 PreparedStatement stmt = con.prepareStatement("INSERT INTO tweet VALUES (?,?,?,?,?)");
 			 
-			 MongoClient mongo = new MongoClient( "localhost" , 27017 );
-		     MongoDatabase database = mongo.getDatabase("TwitterDelincuencia");
-		     MongoCollection<org.bson.Document> collection = database.getCollection("ColeccionTweetsDelincuencia");
-		     
 			 for(int i=0;i<hits.length;i++){
 				int docId= hits[i].doc;
 				doc=this.searcher.doc(docId);
-			    Long numL = Long.valueOf(doc.get("id")).longValue();
-
-				System.out.println("el id es: "+doc.get("id"));
-			    collection.updateOne(Filters.eq("id",numL), Updates.set("crime", numero));
+			    //Long numL = Long.valueOf(doc.get("id")).longValue();
+			    int comuna = Integer.valueOf(doc.get("commune"));
+			    int crimen = Integer.parseInt(numero);
+			    String fecha = String.valueOf(doc.get("year"))+"-"+String.valueOf(doc.get("month"))+"-"+String.valueOf(doc.get("day"));
+			    String last_update = fecha+" "+String.valueOf(doc.get("time"));
+			    //System.out.println("Comuna :"+comuna);
+			    //System.out.println("crimen :"+crimen);
+			    //System.out.println(last_update);
+			    //System.out.println(fecha);
+				//System.out.println("el id es: "+doc.get("id"));
+			    //collection.updateOne(Filters.eq("id",numL), Updates.set("crime", numero));
+				     
+			     stmt.setInt(1, 0);
+				 stmt.setString(2,fecha);
+				 stmt.setInt(3,comuna);
+				 stmt.setInt(4,crimen);
+				 stmt.setString(5,last_update);
+				 
+				 stmt.executeUpdate();
+				 con.close();
 				System.out.println("===================================");
 			 }
-			 mongo.close();
 		 }
 		}
 		catch (Exception e) {
@@ -86,7 +106,7 @@ public class SearcherTweets {
 	public static void main(String[] args) {
 		
 		 String sexual = "abuso violacion penetracion abusador acosador tocamiento pornografia pedofilia pedofilo";
-		 String drogas = "drogas marihuana trafico narcotrafico narcotraficante psicoactivos cannabis cocaina coca jalar extasis heroina inhalante alucinogeno sobredosis ";
+		 String drogas = "drogas marihuana trafico narcotrafico narcotraficante psicoactivos cannabis cocaina jalar extasis heroina inhalante alucinogeno sobredosis";
 		 String delitosViolentos = "robar asalto hurto pistola disparos asesinato atraco asesino matar herido heridos delincuente muerte muertas robo asaltar";
 		 String intrafamiliar = "violencia amenaza castigo gritos pelea golpes moreton agresion maltrato insulto";
 		 String responsabilidadAdolecente = "sename SENAME chiquillo cabro";
@@ -96,7 +116,7 @@ public class SearcherTweets {
 	        while (Tok.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indice_invertido_tweets","tweet","+"+palabra);
 	    		sTweets.search("1");
 	        }
 			System.out.println("______________________________________");
@@ -107,7 +127,7 @@ public class SearcherTweets {
 	        while (Tok2.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok2.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra+"-"+"cola");
+	        	SearcherTweets sTweets = new SearcherTweets("../indice_invertido_tweets","tweet","+"+palabra);
 	    		sTweets.search("2");
 	        }
 			System.out.println("______________________________________");
@@ -117,7 +137,7 @@ public class SearcherTweets {
 	        while (Tok3.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok3.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indice_invertido_tweets","tweet","+"+palabra);
 	    		sTweets.search("3");
 	        }
 			System.out.println("______________________________________");
@@ -127,7 +147,7 @@ public class SearcherTweets {
 	        while (Tok4.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok4.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indice_invertido_tweets","tweet","+"+palabra);
 	    		sTweets.search("4");
 	        }
 			System.out.println("______________________________________");
@@ -137,7 +157,7 @@ public class SearcherTweets {
 	        while (Tok5.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok5.nextElement();
-	        	SearcherTweets sTweets = new SearcherTweets("../indexaciones","tweet","+"+palabra);
+	        	SearcherTweets sTweets = new SearcherTweets("../indice_invertido_tweets","tweet","+"+palabra);
 	    		sTweets.search("5");
 	        }
 			System.out.println("______________________________________");

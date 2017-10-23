@@ -1,6 +1,7 @@
 package cl.citiaps.twitter.streaming;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -30,8 +31,122 @@ public class TwitterStreaming {
 
 	private final TwitterStream twitterStream;
 	private Set<String> keywords;
+	
+	// METODOS PARA CAPTAR TWEETS VALIDOS
+	public int localizacion(Status status)
+	{
+		String lugar = status.getUser().getLocation();
+		if(lugar != null)
+		{
+			ArrayList<Integer> resultados = new ArrayList<Integer>();
 
-	private TwitterStreaming() {
+	        resultados.add(lugar.indexOf("Santiago"));
+	        resultados.add(lugar.indexOf("Independencia"));
+	        resultados.add(lugar.indexOf("Conchalí"));
+	        resultados.add(lugar.indexOf("Huechuraba"));
+	        resultados.add(lugar.indexOf("Recoleta"));
+	        resultados.add(lugar.indexOf("Provicencia"));
+	        resultados.add(lugar.indexOf("Vitacura"));
+	        resultados.add(lugar.indexOf("Lo Barnechea"));
+	        resultados.add(lugar.indexOf("Las Condes"));
+	        resultados.add(lugar.indexOf("Ñuñoa"));
+	        resultados.add(lugar.indexOf("La Reina"));
+	        resultados.add(lugar.indexOf("Macul"));
+	        resultados.add(lugar.indexOf("Peñalolén"));
+	        resultados.add(lugar.indexOf("La Florida"));
+	        resultados.add(lugar.indexOf("San Joaquín"));
+	        resultados.add(lugar.indexOf("La Granja"));
+	        resultados.add(lugar.indexOf("La Pintana"));
+	        resultados.add(lugar.indexOf("San Ramón"));
+	        resultados.add(lugar.indexOf("San Miguel"));
+	        resultados.add(lugar.indexOf("La Cisterna"));
+	        resultados.add(lugar.indexOf("El Bosque"));
+	        resultados.add(lugar.indexOf("Pedro Aguirre Cerda"));
+	        resultados.add(lugar.indexOf("Lo Espejo"));
+	        resultados.add(lugar.indexOf("Estación Central"));
+	        resultados.add(lugar.indexOf("Cerrillos"));
+	        resultados.add(lugar.indexOf("Maipú"));
+	        resultados.add(lugar.indexOf("Quinta Normal"));
+	        resultados.add(lugar.indexOf("Lo Prado"));
+	        resultados.add(lugar.indexOf("Pudahuel"));
+	        resultados.add(lugar.indexOf("Cerro Navia"));
+	        resultados.add(lugar.indexOf("Renca"));
+	        resultados.add(lugar.indexOf("Quilicura"));
+	        resultados.add(lugar.indexOf("Colina"));
+	        resultados.add(lugar.indexOf("Lampa"));
+	        resultados.add(lugar.indexOf("Tiltil"));
+	        resultados.add(lugar.indexOf("Puente Alto"));
+	        resultados.add(lugar.indexOf("San José de Maipo"));
+	        resultados.add(lugar.indexOf("Pirque"));
+	        resultados.add(lugar.indexOf("San Bernardo"));
+	        resultados.add(lugar.indexOf("Buin"));
+	        resultados.add(lugar.indexOf("Paine"));
+	        resultados.add(lugar.indexOf("Calera de Tango"));
+	        resultados.add(lugar.indexOf("Melipilla"));
+	        resultados.add(lugar.indexOf("María Pinto"));
+	        resultados.add(lugar.indexOf("Curacaví"));
+	        resultados.add(lugar.indexOf("Alhué"));
+	        resultados.add(lugar.indexOf("San Pedro"));
+	        resultados.add(lugar.indexOf("Talagante"));
+	        resultados.add(lugar.indexOf("Peñaflor"));
+	        resultados.add(lugar.indexOf("Isla de Maipo"));
+	        resultados.add(lugar.indexOf("El Monte"));
+	        resultados.add(lugar.indexOf("Padre Hurtado"));
+	        int i = 0;
+	        int a ;
+	        while(i<52)
+	        {
+	        	int com = resultados.get(i);
+	        	if(com != -1)
+	        	{
+	        		a= i + 1;
+	        		System.out.println("la localizacion es:"+a+";deberia ser:"+lugar);
+	        		return i+1;
+	        	}
+	        	i++;
+	        } 
+		}
+        return -1;
+	}
+	
+	public String fecha()
+	{
+		String date;
+		//Obtencion de la fecha del tweet
+        Calendar cale = Calendar.getInstance();
+        String  anio = Integer.toString(cale.get(Calendar.YEAR));
+        String  mes = Integer.toString(cale.get(Calendar.MONTH));
+        String  dia = Integer.toString(cale.get(Calendar.DAY_OF_MONTH));
+        //Se guarda como solo un string.
+        date = anio+"-"+mes+"-"+dia;  
+		return date;
+	}
+
+	public String tiempo()
+	{
+        Calendar cale = Calendar.getInstance();
+        String  hora = Integer.toString(cale.get(Calendar.HOUR_OF_DAY));
+        int minutoI = cale.get(Calendar.MINUTE);
+        int segundoI = cale.get(Calendar.SECOND);
+        String minuto;
+        if (minutoI < 10){
+            minuto = "0" + Integer.toString(minutoI);
+        }
+        else{
+             minuto = Integer.toString(minutoI);
+        }
+        String segundo;
+        if (segundoI < 10){
+            segundo = "0" + Integer.toString(segundoI);
+        }
+        else{
+             segundo = Integer.toString(segundoI);
+        }
+        String tiempo = hora+":"+minuto+":"+segundo;
+        return tiempo;
+	}
+
+private TwitterStreaming() {
 		this.twitterStream = new TwitterStreamFactory().getInstance();
 		this.keywords = new HashSet<>();
 		loadKeywords();
@@ -77,81 +192,74 @@ public class TwitterStreaming {
 					if(status.isRetweet() == false)
 					{
 						//Obtencion de la fecha del tweet
-	                    Calendar cale = Calendar.getInstance();
-	                    String  anio = Integer.toString(cale.get(Calendar.YEAR));
-	                    String  mes = Integer.toString(cale.get(Calendar.MONTH));
-	                    String  dia = Integer.toString(cale.get(Calendar.DAY_OF_MONTH));
-	                    //Se guarda como solo un string.
-	                    String fecha = dia+"/"+mes+"/"+anio;  
-	                    
-	                    String  hora = Integer.toString(cale.get(Calendar.HOUR_OF_DAY));
-	                    int minutoI = cale.get(Calendar.MINUTE);
-	                    int segundoI = cale.get(Calendar.SECOND);
-	                    String minuto;
-	                    if (minutoI < 10){
-	                        minuto = "0" + Integer.toString(minutoI);
-	                    }
-	                    else{
-	                         minuto = Integer.toString(minutoI);
-	                    }
-	                    String segundo;
-	                    if (segundoI < 10){
-	                        segundo = "0" + Integer.toString(segundoI);
-	                    }
-	                    else{
-	                         segundo = Integer.toString(segundoI);
-	                    }
-	                    
-						System.out.println(status.getId());
-						System.out.println(status.getText());
-						System.out.println(status.getUser().getName());
-						System.out.println("Fecha: "+dia+"/"+mes+"/"+anio);
-	                    System.out.println("Hora: "+hora+":"+minuto+":"+segundo);
-	                    System.out.println(status.getUser().getLocation());
-	                    final GeoLocation location  = status.getGeoLocation();
-	                    if(location != null) {
-	                       System.out.println(location.getLatitude());
-	                       System.out.println(location.getLongitude());
+
+	                    String fecha = fecha();  
+	                    String hora = tiempo();
+	                    int comu = localizacion(status);
+	                    String comuna = Integer.toString(comu);
+	                    if(comu > 0)
+	                    {
+	                    	Calendar cale = Calendar.getInstance();
+					        String  anio = Integer.toString(cale.get(Calendar.YEAR));
+					        String  mes = Integer.toString(cale.get(Calendar.MONTH));
+					        String  dia = Integer.toString(cale.get(Calendar.DAY_OF_MONTH));
+					        //System.out.println(status.getId());
+							System.out.println(status.getText());
+							System.out.println(status.getUser().getName());
+							System.out.println("Fecha: "+fecha);
+		                    System.out.println("Hora: "+hora);
+		                    
+		                    final GeoLocation location  = status.getGeoLocation();
+		                    if(location != null) {
+		                       System.out.println(location.getLatitude());
+		                       System.out.println(location.getLongitude());
+		                    }else
+		                    {
+		                    	System.out.println("no tiene geolocalizacion");
+		                    }
+							System.out.println("ESPANOL===========================================================/n");
+							
+							//Idenfiticacion
+							MongoClient mongoClient = new MongoClient( "localhost" , 27017); 
+							//Se crea la BD
+							MongoDatabase database = mongoClient.getDatabase("Crinfo");
+							//Crea la colleccion
+							System.out.println("LA db es Crinfo");
+							MongoCollection<Document> coll = database.getCollection("Tweets");
+										
+							//Crea un documento						
+							Document doc = new Document("id", status.getId())
+											    .append("tweet", status.getText())
+											    .append("username", status.getUser().getName())
+											    .append("day", dia)
+		                                        .append("month", mes)
+		                                        .append("year", anio)
+		                                        .append("hour",hora)
+												.append("commune",comuna);
+		                                         
+							
+							//Lo inserta en la colleccteion MyTestCollection de la BD test.
+							coll.insertOne(doc);
+							//Cierro el cliente:
+							mongoClient.close();
 	                    }else
 	                    {
-	                    	System.out.println("no tiene geolocalizacion");
+	                    	// localizacion incorrecta !
 	                    }
-						System.out.println("ESPANOL===========================================================/n");
 						
-						//Idenfiticacion
-						MongoClient mongoClient = new MongoClient( "localhost" , 27017); 
-						MongoCredential credential = MongoCredential.createCredential("root", "TwitterDelincuencia", "password".toCharArray());
 
-						//Se crea la BD
-						MongoDatabase database = mongoClient.getDatabase("TwitterDelincuencia");
-						//Crea la colleccion
-						MongoCollection<Document> coll = database.getCollection("ColeccionTweetsDelincuencia");
-						
-						//Crea un documento
-						Document doc = new Document("id", status.getId())
-										    .append("tweet", status.getText())
-										    .append("username", status.getUser().getName())
-										    .append("day", dia)
-	                                        .append("month", mes)
-	                                        .append("year", anio)
-	                                        .append("hour",hora+":"+minuto+":"+segundo);
-	                                                                                                                  
-						//Lo inserta en la colleccteion MyTestCollection de la BD test.
-						coll.insertOne(doc);
-						//Cierro el cliente:
-						mongoClient.close();
 					}else
 					{
-						System.out.println(status.getId());
-						System.out.println(status.getText());
-						System.out.println("ES RETWEET===========================================================/n");
+						//System.out.println(status.getId());
+						//System.out.println(status.getText());
+						//System.out.println("ES RETWEET===========================================================/n");
 					}
 					
 				}else
 				{
-					System.out.println(status.getId());
-					System.out.println(status.getText());
-					System.out.println("CUALQUIER IDIOMA===========================================================/n");
+					//System.out.println(status.getId());
+					//System.out.println(status.getText());
+					//System.out.println("CUALQUIER IDIOMA===========================================================/n");
 				}
 				
 			}
@@ -160,15 +268,12 @@ public class TwitterStreaming {
 		FilterQuery fq = new FilterQuery();
 
 		fq.track(keywords.toArray(new String[0]));
-		fq.language(new String[]{"es"});
-		fq.locations(new double[][]
-			{new double[]{-34.114048, -71.338107},
-             new double[]{-33.033965, -69.805514
-                }});
+
+		this.twitterStream.addListener(listener);
+		this.twitterStream.filter(fq);
 	}
 	
 	public static void main(String[] args) {
 		new TwitterStreaming().init();
 	}
-
 }
