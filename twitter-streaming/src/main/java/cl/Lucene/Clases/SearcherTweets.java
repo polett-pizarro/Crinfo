@@ -103,9 +103,9 @@ public class SearcherTweets {
 		}
 	}
 	
-	public static void main(String[] args) {
-		
-		 String sexual = "abuso violacion penetracion abusador acosador tocamiento pornografia pedofilia pedofilo";
+	public static void init()
+	{
+		String sexual = "abuso violacion penetracion abusador acosador tocamiento pornografia pedofilia pedofilo";
 		 String drogas = "drogas marihuana trafico narcotrafico narcotraficante psicoactivos cannabis cocaina jalar extasis heroina inhalante alucinogeno sobredosis";
 		 String delitosViolentos = "robar asalto hurto pistola disparos asesinato atraco asesino matar herido heridos delincuente muerte muertas robo asaltar";
 		 String intrafamiliar = "violencia amenaza castigo gritos pelea golpes moreton agresion maltrato insulto";
@@ -161,10 +161,10 @@ public class SearcherTweets {
 	    		sTweets.search("5");
 	        }
 			System.out.println("______________________________________");
-
-	                
-	        
-		
-		
+	}
+	
+	public static void main(String[] args) 
+	{
+		init();	
 	}
 }
