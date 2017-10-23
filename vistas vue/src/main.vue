@@ -64,9 +64,9 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="u,i in TopCrime">
--                                            <td>{{i+1}}.-</td>
--                                            <td>{{u[0]}}</td>
--                                            <td>{{u[1]}}</td>
+                                            <td>{{i+1}}.-</td>
+                                            <td>{{u[0]}}</td>
+                                            <td>{{u[1]}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
