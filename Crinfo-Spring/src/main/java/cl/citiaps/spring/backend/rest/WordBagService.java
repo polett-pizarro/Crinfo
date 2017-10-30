@@ -24,13 +24,12 @@ import cl.citiaps.spring.backend.repository.WordBagRepository;
 @RequestMapping("/wordBag")
 public class WordBagService {
 	
-	@Autowired
+    /*@Autowired
     private CrimeRepository crimeRepository;
     @Autowired
     private CommuneRepository communeRepository;
     @Autowired
-    private TweetRepository tweetRepository;
-
+    private TweetRepository tweetRepository;*/
     @Autowired
     private WordBagRepository wordBagRepository;
     
@@ -40,13 +39,9 @@ public class WordBagService {
         return wordBagRepository.findAll();
     }
    
-    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public  WordBag findOne(@PathVariable("id") Integer id) {
         return wordBagRepository.findOne(id);
     }
-    
-    
- 
 }

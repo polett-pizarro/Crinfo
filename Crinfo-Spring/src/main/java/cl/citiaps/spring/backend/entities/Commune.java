@@ -27,7 +27,9 @@ public class Commune implements Serializable {
 	@Column(name="name_commune")
 	private String nameCommune;
 
+
 	//bi-directional many-to-one association to Tweet
+	@JsonIgnore
 	@OneToMany(mappedBy="commune")
 	private List<Tweet> tweets;
 
@@ -58,7 +60,7 @@ public class Commune implements Serializable {
 		this.nameCommune = nameCommune;
 	}
 
-	/*public List<Tweet> getTweets() {
+	public List<Tweet> getTweets() {
 		return this.tweets;
 	}
 
@@ -78,6 +80,6 @@ public class Commune implements Serializable {
 		tweet.setCommune(null);
 
 		return tweet;
-	}*/
+	}
 
 }

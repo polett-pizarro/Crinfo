@@ -27,11 +27,13 @@ public class Tweet implements Serializable {
 	private String publicationDate;
 
 	//bi-directional many-to-one association to Crime
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_crime")
 	private Crime crime;
 
 	//bi-directional many-to-one association to Commune
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_commune")
 	private Commune commune;

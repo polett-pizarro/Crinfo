@@ -26,6 +26,7 @@ public class WordBag implements Serializable {
 	private String word;
 
 	//bi-directional many-to-one association to Crime
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_crime")
 	private Crime crime;

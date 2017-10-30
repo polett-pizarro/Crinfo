@@ -27,10 +27,12 @@ public class Crime implements Serializable {
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Tweet
+	@JsonIgnore
 	@OneToMany(mappedBy="crime")
 	private List<Tweet> tweets;
 
 	//bi-directional many-to-one association to WordBag
+	@JsonIgnore
 	@OneToMany(mappedBy="crime")
 	private List<WordBag> wordBags;
 
@@ -61,7 +63,7 @@ public class Crime implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	/*public List<Tweet> getTweets() {
+	public List<Tweet> getTweets() {
 		return this.tweets;
 	}
 
@@ -103,6 +105,6 @@ public class Crime implements Serializable {
 		wordBag.setCrime(null);
 
 		return wordBag;
-	}*/
+	}
 
 }
