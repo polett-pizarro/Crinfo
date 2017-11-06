@@ -29,7 +29,8 @@ module.exports = (options = {}) => ({
           {
             test:  /\.(jpeg|gif|png|svg|woff|ttf|wav|mp3)$/,
             loader: "file-loader?name=img/img-[hash:6].[ext]"
-          }
+          },
+          { test: /\.css$/, loader: 'style-loader!css-loader' }
         ]
     },
     plugins:options.dev?[

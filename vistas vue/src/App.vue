@@ -1,55 +1,29 @@
 <template>
-  <div>
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">CRINFO</a>
-        </div>
-        <!-- /.navbar-top-links -->
-        </nav>
-
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="#/Main"><i class="fa fa-tachometer" aria-hidden="true"></i> VISTA PRINCIPAL</a>
-                    </li>
-                    <li>
-                        <a href="#/Graph"><i class="fa fa-bar-chart" aria-hidden="true"></i> GRAFICOS</a>
-                    </li>
-                    <li>
-                        <a href="#/"><i class="fa fa-map-marker" aria-hidden="true"></i> MAPA DE CALOR</a>
-                    </li>
-                    <li>
-                        <a href="#/Ma"><i class="fa fa-pie-chart" aria-hidden="true"></i> MAS COSAS</a>
-                    </li>
-                </ul>
+        <div class="container-fluid display-table">
+            <div class="row display-table-row">
+                <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                    <div class="logo">
+                        <a hef="#/Main"><img src="./images/crinfo.png" class="hidden-xs hidden-sm"></a>
+                    </div>
+                    <div class="navi">
+                        <ul>
+                            <li><a href="#Main"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+                            <li><a href="#/Grafo"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Grafos</span></a></li>
+                            <li><a href="#/Grafico"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Graficos</span></a></li>
+                            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Calender</span></a></li>
+                            <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+                            <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Setting</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-11 display-table-cell v-align">
+                    <div class="user-dashboard">
+                            <router-view></router-view>
+                    </div>
+                </div>
             </div>
-            <!-- /.sidebar-collapse -->
+
         </div>
-        <!-- /.navbar-static-side -->
-
-
-
-
-    <div class="content-wrapper">
-      <div class="container-fluid">
-        <main class="container">
-          <router-view></router-view>
-        </main>
-      </div>
-    </div>
-
-    <footer>
-      Footer
-    </footer>
-</div>
 </template>
 
 <script>
