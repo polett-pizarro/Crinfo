@@ -1,53 +1,51 @@
-<style>
-  .chart div {
-    font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: white;
-  }
-
-  .chart rect {
-    fill: steelblue;
-  }
-
-  .chart text {
-    fill: white;
-    font: 10px sans-serif;
-    text-anchor: middle;
-  }
-</style>
 <template>
-    <div id="wrapper">
+    <div id="wrapper" class="navi">
         <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header"><font color="white">Vista Principal</font></h1>
+                <div class="col-lg-10">
+                    <h1 class="page-header"><font color="#0e1a35">Vista Principal</font></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-10">
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> MISION Y VISION
+                            <h2><i class="fa fa-info"></i> MISION Y VISION</h2>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="row">
-                                <p>Para el gobierno, las municipalidades, la Paz Ciudadana y/o algún político, quienes tienen la necesidad de saber la apreciación que tiene la sociedad respecto de la delincuencia, el CRINFO (Cime Information) es una aplicación web que brinda estadísticas de las reacciones que tiene la sociedad respecto de la delincuencia. </p>                             </div>
+                                <p ALIGN="justify">Para el gobierno, las municipalidades, la Paz Ciudadana y/o algún político, quienes tienen la necesidad de saber la apreciación que tiene la sociedad
+                                   respecto de la delincuencia, CRINFO (Crime Information) es un observatorio de Twitter que muestra resultados por medio de una aplicación web que brinda
+                                   estadísticas de las reacciones que tiene la sociedad respecto de la delincuencia, clasifica diversos tipos de delitos, muestra informacion por comunas
+                                   rankea los diferentes delitos, ademas de la delincuencia registrada en las diversas comunas existentes.
+                                </p>
                             </div>
-                            <!-- /.row -->
                         </div>
-                        <!-- /.panel-body -->
+                        <!-- /.row -->
                     </div>
-                </div>
-                <!-- /.col-lg-8 -->
-                <div class="col-lg-4">
+                    <!-- /.panel-body -->
+                    <!-- /.panel -->
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-lock"></i> INFORMACION RAPIDA </h2>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <p ALIGN="justify">Mostrar la informacion mas reciente registrada en cuanto a los crimenes ocurridos en chile y hacerlo de una forma amistosa y rapida
+                                es el principal enfoque que se busca trabajar, a continuacion se puede apresiar dos ejemplos en donde se muestra algunos de los resultados obtenidos
+                                por medio del analisis de <strong><big>CRINFO</big></strong>:</p>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.panel-body -->
+
+                    <div class="panel panel-info col-lg-6">
                       <div class="panel-heading">
                           <i class="fa fa-bell fa-fw"></i> Top 3 Delitos en Santiago
                       </div>
@@ -75,7 +73,7 @@
                       </div>
                     </div>
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-info  col-lg-6">
                       <div class="panel-heading">
                           <i class="fa fa-bell fa-fw"></i> Top 3 Comunas con más delitos
                       </div>
@@ -102,25 +100,11 @@
                             <!-- /.table-responsive -->
                       </div>
                     </div>
-
-                    <!-- /.panel -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Delitos en Santiago
-                        </div>
-                        <div class="panel-body">
-                            <p class="chart">Algun tipo de grafico </p>
-                            <a href="#" class="btn btn-default btn-block">Ver Detalles</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
                 </div>
-                <!-- /.col-lg-4 -->
             </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 </template>
@@ -154,19 +138,6 @@
        // error callback
        console.log('error cargando lista');
     });
-
-      var month = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre",""]
-      var data = [30, 86, 168, 281, 303, 365];
-
-      var sum = data.reduce((acc, item) => acc + item, 0);
-
-      d3.select(".chart")
-        .selectAll("div")
-        .data(data)
-          .enter()
-          .append("div")
-          .style("width", function(d) { return (d/sum)*100 + "%"; })
-          .text(function(d) { return d; });
     }
 }
 </script>
