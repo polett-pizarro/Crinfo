@@ -27,8 +27,7 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 const routes = [
-  { path: '/index', alias: '/', component: Index},
-  { path:'/Main', component: Main},
+  { path:'/Main', alias: '/', component: Main},
   { path: '/Grafico', component: Graficos},
   { path:'/ma', component: Ma},
   { path: '/Grafo', component: Grafo},
