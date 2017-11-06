@@ -21,3 +21,5 @@
 /Crinfo-Spring/build.gradle
 /Crinfo-Spring/.properties/
 
+/build/
+/bin/

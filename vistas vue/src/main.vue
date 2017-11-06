@@ -138,6 +138,16 @@
        // error callback
        console.log('error cargando lista');
     });
+
+    this.$http.post('http://localhost:7474/db/data/transaction/commit',
+            {"statements" : [ {
+    "statement" : "MATCH p=()-->() RETURN p"
+            }]},{
+            headers: {'Authorization': 'Basic ' + btoa("neo4j" + ':' + "123456789"),
+            }
+}).then(response=>{
+  console.log(response);
+});
     }
 }
 </script>
