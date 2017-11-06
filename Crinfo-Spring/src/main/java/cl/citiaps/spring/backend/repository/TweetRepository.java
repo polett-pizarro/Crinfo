@@ -22,7 +22,7 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 		"WHERE tweet.id_crime = crime.id_crime " +
 		"GROUP BY tweet.id_crime " +
 		"ORDER BY count(tweet.id_tweet) desc " +
-		"LIMIT 5", nativeQuery=true)
+		"LIMIT 3", nativeQuery=true)
 	public Iterable<HashMap<String,Integer>> findTopCrime();
 
 	@Query(value = "SELECT * FROM tweet " + 
