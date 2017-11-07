@@ -1,7 +1,7 @@
 <template>
   <body class="navi">
     <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-info"></i> DE QUE SE ESTA HABLANDO?</font></h1>
-    <svg class="grafo" width="960" height="600"></svg>
+    <svg class="grafo" width="1100" height="900"></svg>
     <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-trophy" aria-hidden="true"></i> TWITTEROS CON MÁS INFLUENCIA</font></h1>
     <div class="panel panel-info col-lg-6">
       <div class="panel-heading">

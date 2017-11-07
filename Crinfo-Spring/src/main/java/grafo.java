@@ -21,33 +21,36 @@ public class grafo {
 		while(j < 6)
 		{
 			ArrayList<Tweetl> tweets =h.searchNEO(j);
-			
+			System.out.println(tweets.size());
 		       while(i < tweets.size())
 		       {
 		    	   Tweetl tw = tweets.get(i);
 		    	  
-		    	  if(tw != null)
+		    	  if(tw != null && tw.getUsername().indexOf("'") == -1 )
 		    	  {
 		    		  System.out.println("insertando!");
 		    		  gr.createPersonNode(session, tw.getUsername(), Integer.parseInt(tw.getFollowers()),Integer.parseInt(tw.getLikes()), Integer.parseInt(tw.getRetweets()), Integer.parseInt(tw.getMentions()), Integer.parseInt(tw.getCrime()));
 		    	  } 
-		    	  i++;
-		    	  
+		    	  i++;  
 		       }
+		       i=0;
 		       j++;
 		}		
 	}
 	
 	public void createPersonNode(Session session, String name, int followers, int likes, int retweets, int mention, int delito){ //Sexuales, int drogas, int dViolentos, int vIntrafamiliar, int rpAdolescente){
+		System.out.println("INSERTANDO UN TWITTERO");
 		StatementResult r1 = session.run("MATCH (n) where n.name='"+name+"' RETURN count(n) as cantidad");
 		Record a1 = r1.single();
 		if(Integer.parseInt(a1.get("cantidad").toString()) == 0){
+			System.out.println(delito+"estoy creando un twittero");
 			String createPerson = "CREATE (p:Person {name:" + "'"+ name + "'" +", followers: " +  followers  
 	    			+", likes:" +  likes  +", retweets:"  + retweets  + ", mention:" + mention 
 	    			+", delito:" +  delito +"})";
 	    	session.run(createPerson);
     	}
 		else{
+			System.out.println("ya existe el twittero");
 			StatementResult r2= session.run("MATCH (n) where n.name='"+name+"' RETURN n.followers as f");
 			Record a2 = r2.single();
 			StatementResult r3= session.run("MATCH (n) where n.name='"+name+"' RETURN n.likes as l");
@@ -80,6 +83,7 @@ public class grafo {
 	               	+ " create (a)-[r:twitea]->(c)");
 		}
 		else if(delito == 2){
+			
 	        session.run("match(a:Person) where a.name = '" +name + "'"
 	           	  	+ "  match (c:Crime) where c.name='Drogas' "        
 	           	  	+ "  create (a)-[r:twitea]->(c)");
