@@ -19,10 +19,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="u,i in topInfluencia">
+                        <tr v-for="u,i in top">
                             <td>{{i+1}}.-</td>
-                            <td>{{u[1]}}</td>
-                            <td>{{u[0]}}</td>
+                            <td>{{u.row[0]}}</td>
+                            <td>{{u.row[1]}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -38,9 +38,11 @@
   	data(){
         var TopCommune;
         var topInfluencia;
+        var top;
         return{
             TopCommune:[],
-            topInfluencia:[[5249, "Tele13"],[5034,"BioBioChile"],[3402, "La Tercera"],[3298, "Emol.com"],[3041, "Radio ADN"],[2972, "The Clinic Online"],[2311, "Carabineros de Chile"],[1607, "Publimetro"],[1244, "Marco Enríquez-O"],[438, "LaSerenaOnline"]]
+            topInfluencia:[[5249, "Tele13"],[5034,"BioBioChile"],[3402, "La Tercera"],[3298, "Emol.com"],[3041, "Radio ADN"],[2972, "The Clinic Online"],[2311, "Carabineros de Chile"],[1607, "Publimetro"],[1244, "Marco Enríquez-O"],[438, "LaSerenaOnline"]],
+            top:[]
         }
     },
     methods:{
@@ -63,7 +65,7 @@
 		  		for (let i = j.results[0].data.length - 1; i >= 0; i--) {
 
 					let dato=j.results[0].data[i].row[0];
-					console.log(dato);
+					//console.log(dato);
 					//console.log(dato.likes);
 					let nodo={"name":dato.name,"group":0};
 					if(dato.likes==null){
@@ -126,7 +128,7 @@
 	            }
 	    }).
 		then(response=>{
-		    	console.log(response);
+		    	//console.log(response);
 		    	var j=JSON.parse(response.bodyText);
 		  		//console.log(j.results);
 		  		//console.log(j.results[0]);
@@ -135,7 +137,7 @@
 		  		for (let i = j.results[0].data.length - 1; i >= 0; i--) {
 
 					let dato=j.results[0].data[i].row[0];
-					console.log(dato);
+					//console.log(dato);
 					//console.log(dato.likes);
 					let nodo={"name":dato.name,"group":0};
 					if(dato.likes==null){
@@ -156,7 +158,7 @@
 	            }
 	    }).
 		then(response=>{
-		    	console.log(response);
+		    	//console.log(response);
 		    	var j2=JSON.parse(response.bodyText);
 		  		//console.log(j2.results);
 		  		//console.log(j2.results[0]);
@@ -173,13 +175,13 @@
 					}*/
 					let link={"source":dato[0].name,"target":dato[2].name,"value":1};
 					nodos.links.push(link);
-					console.log(link);
+					//console.log(link);
 		      }
 		      //console.log(nodos);
 			});
 		Promise.all([primerConsulta,segundaConsulta]).
 			then(values=>{
-				console.log(nodos);
+				//console.log(nodos);
         //
         var svg = d3.select(".grafo"),
             width = +svg.attr("width"),
@@ -274,6 +276,8 @@
         }
         //
 			});
+      
+
       var top = this.$http.post('http://localhost:7474/db/data/transaction/commit',
         {"statements" : [ {
       "statement" : "MATCH (n:Person) MATCH (c:Person) return c.name, (c.followers + c.likes + c.mention + c.retweets)/count(n) as metrica order by metrica desc Limit 10"
@@ -283,12 +287,19 @@
       }).
     then(response=>{
        // get body data
-      this.top= response.body;
+      console.log(response);
+      this.top= JSON.parse(response.bodyText);
+      //console.log(response.bodyText);
+      //console.log(top);
+      this.top=this.top.results[0].data;
       console.log(this.top);
+      //[]. row [0] y el [1]
     }, response=>{
        // error callback
        console.log('error cargando lista');
     });
+
+
     }
   }
 </script>
