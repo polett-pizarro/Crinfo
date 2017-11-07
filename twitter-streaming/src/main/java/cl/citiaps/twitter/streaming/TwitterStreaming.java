@@ -24,6 +24,7 @@ import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
+import twitter4j.UserMentionEntity;
 
 
 
@@ -92,6 +93,9 @@ public class TwitterStreaming {
 	        resultados.add(lugar.indexOf("Isla de Maipo"));
 	        resultados.add(lugar.indexOf("El Monte"));
 	        resultados.add(lugar.indexOf("Padre Hurtado"));
+	        int chile = lugar.indexOf("chile");
+	        int Chilee = lugar.indexOf("Chile");
+	        int santiago = lugar.indexOf("santiago");
 	        int i = 0;
 	        int a ;
 	        while(i<52)
@@ -104,7 +108,20 @@ public class TwitterStreaming {
 	        		return i+1;
 	        	}
 	        	i++;
-	        } 
+	        }
+	        if (chile != -1)
+	        {
+	        	System.out.println("la localizacion es: chile ;deberia ser:"+lugar);
+	        	return 1;
+	        }else if(Chilee != -1)
+	        {
+	        	System.out.println("la localizacion es: Chile ;deberia ser:"+lugar);
+	        	return 1;
+	        }else if(santiago != -1)
+	        {
+	        	System.out.println("la localizacion es: santiago ;deberia ser:"+lugar);
+	        	return 1;
+	        }
 		}
         return -1;
 	}
@@ -187,10 +204,16 @@ private TwitterStreaming() {
 			@Override
 			public void onStatus(Status status) 
 			{
+
 				if(status.getLang().equals("es"))
 				{
 					if(status.isRetweet() == false)
 					{
+						//System.out.println("NO ES RETWEET===========================================================/n");
+	                   
+						//System.out.println(status.getId());
+						//System.out.println(status.getText());
+
 						//Obtencion de la fecha del tweet
 
 	                    String fecha = fecha();  
@@ -204,10 +227,20 @@ private TwitterStreaming() {
 					        String  mes = Integer.toString(cale.get(Calendar.MONTH));
 					        String  dia = Integer.toString(cale.get(Calendar.DAY_OF_MONTH));
 					        //System.out.println(status.getId());
+							System.out.println("=====================================================================/n");
+
 							System.out.println(status.getText());
 							System.out.println(status.getUser().getName());
-							System.out.println("Fecha: "+fecha);
 		                    System.out.println("Hora: "+hora);
+		                    String retweets = Integer.toString(status.getRetweetCount());
+		                    String followers = Integer.toString(status.getUser().getFollowersCount());
+		                    String likes = Integer.toString(status.getUser().getFavouritesCount());
+		                    UserMentionEntity[] a = status.getUserMentionEntities();
+		                    String menciones = Integer.toString(a.length);
+		                    System.out.println("la cantidad de mensiones es:"+menciones);
+		                    System.out.println("la cantidad de RT es"+status.getRetweetCount());
+						    System.out.println("la cantidad de likes tw es"+status.getUser().getFavouritesCount());
+		                    //status.getCreatedAt().getDay();
 		                    
 		                    final GeoLocation location  = status.getGeoLocation();
 		                    if(location != null) {
@@ -224,8 +257,7 @@ private TwitterStreaming() {
 							//Se crea la BD
 							MongoDatabase database = mongoClient.getDatabase("Crinfo");
 							//Crea la colleccion
-							System.out.println("LA db es Crinfo");
-							MongoCollection<Document> coll = database.getCollection("Tweets");
+							MongoCollection<Document> coll = database.getCollection("twSprint2");
 										
 							//Crea un documento						
 							Document doc = new Document("id", status.getId())
@@ -235,31 +267,32 @@ private TwitterStreaming() {
 		                                        .append("month", mes)
 		                                        .append("year", anio)
 		                                        .append("hour",hora)
-												.append("commune",comuna);
-		                                         
+												.append("commune",comuna)
+												.append("retweets",retweets)
+												.append("followers",followers)
+												.append("mentions", menciones)
+												.append("likes", likes);	
+							
+		                            //api rest             
 							
 							//Lo inserta en la colleccteion MyTestCollection de la BD test.
 							coll.insertOne(doc);
 							//Cierro el cliente:
-							mongoClient.close();
+							mongoClient.close();	
 	                    }else
 	                    {
-	                    	// localizacion incorrecta !
+
 	                    }
 						
 
 					}else
 					{
-						//System.out.println(status.getId());
-						//System.out.println(status.getText());
-						//System.out.println("ES RETWEET===========================================================/n");
+						
 					}
 					
 				}else
 				{
-					//System.out.println(status.getId());
-					//System.out.println(status.getText());
-					//System.out.println("CUALQUIER IDIOMA===========================================================/n");
+					
 				}
 				
 			}

@@ -75,8 +75,7 @@ public class grafo {
 	
     public static void main(String[] args) {
     	grafo gr = new grafo();
-        
-    	Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "Neo4j", "123456789" ) );
+        Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "123456789" ) );
         Session session = driver.session();
         
         session.run("match (a)-[r]->(b) delete r");
@@ -108,8 +107,7 @@ public class grafo {
        		System.out.print(record.get("metrica"));
        		System.out.println(record.get("c.name"));
        	}
-       	//createPersonNode(session, "Joalett", 12, 5, 14, 5, 1, 1, 0, 0, 1);
-       //	createPersonNode("Joalett");
+
         session.close();
         driver.close();
     	}

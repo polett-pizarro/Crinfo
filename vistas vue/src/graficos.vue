@@ -1,48 +1,30 @@
 <template>
-  <body>
+  <body class="navi">
     <div class="panel panel-default">
       <div class="panel-heading">
-          <i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO
-          <div class="pull-right">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                      AÑOS
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu pull-right" role="menu">
-                      <li><a href="Graph/{2017}"> 2017</a>
-                      </li>
-                      <li><a href="#"> 2016</a>
-                      </li>
-                      <li><a href="#"> 2015</a>
-                      </li>
-                      <li class="divider"></li>
-                      <li><a href="#">Separated link</a>
-                      </li>
-                  </ul>
-              </div>
+          <h1><i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO</h1>
+          <div class="dropdown pull-right">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              AÑOS
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="Graph/{2017}">2017</a>
+              <a class="dropdown-item" href="#">2016</a>
+              <a class="dropdown-item" href="#">2015</a>
+            </div>
           </div>
-          <div class="pull-right">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                      DELITOS
-                      <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu pull-right" role="menu">
-                      <li><a href="Graph/{2017}"> Delito 1</a>
-                      </li>
-                      <li><a href="#"> Delito 2</a>
-                      </li>
-                      <li><a href="#"> Delito 3</a>
-                      </li>
-                      <li class="divider"></li>
-                      <li><a href="#">Todos los delitos </a>
-                      </li>
-                  </ul>
-              </div>
+          <div class="dropdown pull-right">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              DELITOS
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Delito 1</a>
+              <a class="dropdown-item" href="#">Delito 2</a>
+              <a class="dropdown-item" href="#">Delito 3</a>
+            </div>
           </div>
       </div>
-    	<svg width="1000" height="500"></svg>
+    	<svg class="grafico" width="1000" height="500"></svg>
     </div>
   </body>
 
@@ -70,7 +52,7 @@
     },
     methods:{
       cargar:function(data){
-        var svg = d3.select("svg"),
+        var svg = d3.select(".grafico"),
         margin = {top: 20, right: 5, bottom: 30, left: 80},
         width = +svg.attr("width") - margin.left - margin.right,
         height = +svg.attr("height") - margin.top - margin.bottom;
@@ -373,12 +355,12 @@
         salida=>{
           console.log("AAAAS");
           RespuestaCrimen=salida.body;
-          //this.crearDataCrimen(RespuestaCrimen,1); 
+          //this.crearDataCrimen(RespuestaCrimen,1);
         },error=>{
           console.log("si hay error");
           console.log(error);
         });
-        
+
     }
 
 

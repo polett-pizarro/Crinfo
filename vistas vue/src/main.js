@@ -10,6 +10,7 @@ import Ma from "./ma.vue";
 
 import './styles/dash.css';
 import './styles/basicChart.css';
+import './styles/grafo.css';
 //require("../scss/font-awesome.scss");
 
 //require("../vendor/bootstrap/css/bootstrap.min.css");
@@ -29,7 +30,6 @@ Vue.use(VueResource);
 const routes = [
   { path:'/Main', alias: '/', component: Main},
   { path: '/Grafico', component: Graficos},
-  { path:'/ma', component: Ma},
   { path: '/Grafo', component: Grafo},
   //lo mismo que lo anterior para agregar rutas
   //{path:'/actors2', component: Actors2}

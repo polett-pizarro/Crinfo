@@ -35,13 +35,18 @@ targetCompatibility = 1.8
 
 dependencies {
 	// Use MySQL Connector-J
-    compile 'mysql:mysql-connector-java'
-    compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.5.0'
-    compile("org.neo4j:neo4j:3.3.0")
-    compile("org.neo4j.driver:neo4j-java-driver:1.0.6")
+        compile 'mysql:mysql-connector-java'
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-test")
     compile("org.springframework.boot:spring-boot-starter-web")
     runtime("org.springframework.boot:spring-boot-starter-tomcat")
+    compile group: 'org.twitter4j', name: 'twitter4j-stream', version: '4.0.5'
+	compile group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.5'
+	compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile 'org.mongodb:mongodb-driver:3.5.0'
+    compile group: 'org.apache.lucene', name: 'lucene-core', version: '7.0.1'
+    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '7.0.1'
+    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: '7.0.1'
+    compile 'org.neo4j.driver:neo4j-java-driver:1.2.1'
 }
