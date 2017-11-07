@@ -15,6 +15,7 @@ public class hits {
 		
 	}
 	
+
 	
 	// METODO PARA AGREGAR TWEETS A LA DB RELACIONAL 
 	public ArrayList<TweetSQL> searchSQL(int numero)
@@ -72,7 +73,7 @@ public class hits {
 	}
 	
 	// METODO PARA AGREGAR TWEETS A NEO4J
-	public ArrayList<Tweetl> searchNEO(int numero, String keywords)
+	public ArrayList<Tweetl> searchNEO(int numero)
 	{
 		String keywords1 ="asd";
 		try
@@ -89,7 +90,7 @@ public class hits {
 	        while (Tok.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok.nextElement();
-	        	 SearcherTweets sTweets = new SearcherTweets("../indice_invertido_neo4j","tweet","+"+palabra);
+	        	 SearcherTweets sTweets = new SearcherTweets("../indice_invertido_tweets","tweet","+"+palabra);
 	        	 TopDocs result=sTweets.searcher.search(sTweets.query,1000);
 		   		 Document doc=null;
 		   		 ScoreDoc[] hits = result.scoreDocs;

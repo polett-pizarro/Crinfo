@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
@@ -5,7 +7,36 @@ import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 
+import cl.citiaps.spring.backend.lucene.Tweetl;
+import cl.citiaps.spring.backend.lucene.hits;
+
 public class grafo {
+	
+	public void insertarNEO4j(Session session)
+	{
+		grafo gr = new grafo();
+		int i = 0;
+		int j = 1;
+		hits h = new hits();
+		while(j < 6)
+		{
+			ArrayList<Tweetl> tweets =h.searchNEO(j);
+			
+		       while(i < tweets.size())
+		       {
+		    	   Tweetl tw = tweets.get(i);
+		    	  
+		    	  if(tw != null)
+		    	  {
+		    		  System.out.println("insertando!");
+		    		  gr.createPersonNode(session, tw.getUsername(), Integer.parseInt(tw.getFollowers()),Integer.parseInt(tw.getLikes()), Integer.parseInt(tw.getRetweets()), Integer.parseInt(tw.getMentions()), Integer.parseInt(tw.getCrime()));
+		    	  } 
+		    	  i++;
+		    	  
+		       }
+		       j++;
+		}		
+	}
 	
 	public void createPersonNode(Session session, String name, int followers, int likes, int retweets, int mention, int delito){ //Sexuales, int drogas, int dViolentos, int vIntrafamiliar, int rpAdolescente){
 		StatementResult r1 = session.run("MATCH (n) where n.name='"+name+"' RETURN count(n) as cantidad");
@@ -86,7 +117,7 @@ public class grafo {
         session.run( "CREATE (c:Crime {name:'Delitos Violentos'})");        
         session.run( "CREATE (c:Crime {name:'Violencia Intrafamiliar'})");
         session.run( "CREATE (c:Crime {name:'Responsabilidad Penal Adolescente'})");
-        
+        /*
         gr.createPersonNode(session, "Jorge", 12, 5, 14, 5, 1);
         gr.createPersonNode(session, "Jorge", 12, 5, 14, 5, 2);
         gr.createPersonNode(session, "Polett", 10, 7, 28, 10, 1);
@@ -97,6 +128,8 @@ public class grafo {
         gr.createPersonNode(session, "Polett", 10, 10, 10, 10, 3);
         gr.createPersonNode(session, "Juan", 23, 23, 23, 19, 4);
         gr.createPersonNode(session, "Fabian", 7, 7, 7, 7, 5);
+        */
+        gr.insertarNEO4j(session);
         
         StatementResult result = session.run("MATCH (n:Person) MATCH (c:Person) return (c.followers + "
 	        		+ "c.likes + c.mention + c.retweets)/count(n) as metrica, "
