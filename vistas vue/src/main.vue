@@ -75,7 +75,7 @@
 
                     <div class="panel panel-info  col-lg-6">
                       <div class="panel-heading">
-                          <i class="fa fa-bell fa-fw"></i> Top 3 Comunas con más delitos
+                          <i class="fa fa-bell fa-fw"></i> Top 5 Comunas con más delitos
                       </div>
                       <!-- /.panel-heading -->
                       <div class="panel-body">
@@ -145,9 +145,9 @@
             }]},{
             headers: {'Authorization': 'Basic ' + btoa("neo4j" + ':' + "123456789"),
             }
-}).then(response=>{
+    }).then(response=>{
   console.log(response);
-});
+    });
     }
 }
 </script>
