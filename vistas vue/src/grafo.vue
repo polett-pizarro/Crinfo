@@ -1,6 +1,6 @@
 <template>
   <body class="navi">
-    <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-info"></i> DE QUE SE ESTA HABLANDO?</font></h1>
+    <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-info"></i> ¿DE QUÉ SE ESTÁ HABLANDO?</font></h1>
     <svg class="grafo" width="1100" height="900"></svg>
     <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-trophy" aria-hidden="true"></i> TWITTEROS CON MÁS INFLUENCIA</font></h1>
     <div class="panel panel-info col-lg-6">
@@ -15,14 +15,14 @@
                         <tr>
                             <th>Pos.</th>
                             <th>Nombre</th>
-                            <th>#ReTweets</th>
+                            <th>Influencia</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="u,i in TopCrime">
+                        <tr v-for="u,i in topInfluencia">
                             <td>{{i+1}}.-</td>
-                            <td>{{u[0]}}</td>
                             <td>{{u[1]}}</td>
+                            <td>{{u[0]}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -37,10 +37,10 @@
   export default{
   	data(){
         var TopCommune;
-        var TopCrime;
+        var topInfluencia;
         return{
             TopCommune:[],
-            TopCrime:[]
+            topInfluencia:[[5249, "Tele13"],[5034,"BioBioChile"],[3402, "La Tercera"],[3298, "Emol.com"],[3041, "Radio ADN"],[2972, "The Clinic Online"],[2311, "Carabineros de Chile"],[1607, "Publimetro"],[1244, "Marco Enríquez-O"],[438, "LaSerenaOnline"]]
         }
     },
     methods:{
@@ -272,13 +272,23 @@
           if (!d3.event.active) simulation.alphaTarget(0);
           d.fx = null, d.fy = null;
         }
-
-
-
-
-
         //
 			});
+      var top = this.$http.post('http://localhost:7474/db/data/transaction/commit',
+        {"statements" : [ {
+      "statement" : "MATCH (n:Person) MATCH (c:Person) return c.name, (c.followers + c.likes + c.mention + c.retweets)/count(n) as metrica order by metrica desc Limit 10"
+       }]},{
+              headers: {'Authorization': 'Basic ' + btoa("neo4j" + ':' + "123456789"),
+              }
+      }).
+    then(response=>{
+       // get body data
+      this.top= response.body;
+      console.log(this.top);
+    }, response=>{
+       // error callback
+       console.log('error cargando lista');
+    });
     }
   }
 </script>

@@ -5,6 +5,7 @@
 .link {
     stroke: #999;
     stroke-opacity: .6;
+    fill: none;
 }
 .node text {
   font: 9px helvetica;
