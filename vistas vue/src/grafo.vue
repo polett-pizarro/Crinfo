@@ -98,7 +98,7 @@
 	            }
 	    }).
 		then(response=>{
-		    	//console.log(response);
+		    	console.log(response);
 		    	var j=JSON.parse(response.bodyText);
 		  		//console.log(j.results);
 		  		//console.log(j.results[0]);
@@ -128,7 +128,7 @@
 	            }
 	    }).
 		then(response=>{
-		    	//console.log(response);
+		    	console.log(response);
 		    	var j2=JSON.parse(response.bodyText);
 		  		//console.log(j2.results);
 		  		//console.log(j2.results[0]);
