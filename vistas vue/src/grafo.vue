@@ -166,7 +166,7 @@
 
           var graph = nodos;
           var nodes = graph.nodes,
-              nodeById = d3.map(nodes, function(d) { return d.nombre; }),
+              nodeById = d3.map(nodes, function(d) { return d.name; }),
               links = graph.links,
               bilinks = [];
 
@@ -185,7 +185,7 @@
               .attr("class", "link");
 
           var node = svg.selectAll(".node")
-            .data(nodes.filter(function(d) { return d.nombre; }))
+            .data(nodes.filter(function(d) { return d.name; }))
             .enter().append("circle")
               .attr("class", "node")
               .attr("r", 5)
@@ -196,7 +196,7 @@
                   .on("end", dragended));
 
           node.append("title")
-              .text(function(d) { return d.nombre; });
+              .text(function(d) { return d.name; });
 
           simulation
               .nodes(nodes)
