@@ -6,3 +6,6 @@
     stroke: #999;
     stroke-opacity: .6;
 }
+.node text {
+  font: 9px helvetica;
+}

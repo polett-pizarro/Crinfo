@@ -198,6 +198,11 @@
           node.append("title")
               .text(function(d) { return d.name; });
 
+          node.append("text")
+              .attr("dx", 10)
+              .attr("dy", ".35em")
+              .text(function(d) { return d.name });
+
           simulation
               .nodes(nodes)
               .on("tick", ticked);
@@ -208,6 +213,12 @@
           function ticked() {
             link.attr("d", positionLink);
             node.attr("transform", positionNode);
+            d3.selectAll("text").attr("x", function (d) {
+                return d.x;
+            })
+                .attr("y", function (d) {
+                return d.y;
+            });
           }
 
         function positionLink(d) {
