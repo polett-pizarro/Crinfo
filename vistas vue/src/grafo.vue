@@ -2,6 +2,34 @@
   <body class="navi">
     <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-info"></i> DE QUE SE ESTA HABLANDO?</font></h1>
     <svg class="grafo" width="960" height="600"></svg>
+    <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-trophy" aria-hidden="true"></i> TWITTEROS CON MÁS INFLUENCIA</font></h1>
+    <div class="panel panel-info col-lg-6">
+      <div class="panel-heading">
+          <i class="fa fa-bell fa-fw"></i> Top 10 Twitteros
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+            <div class="table-responsive">
+                  <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Pos.</th>
+                            <th>Nombre</th>
+                            <th>#ReTweets</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="u,i in TopCrime">
+                            <td>{{i+1}}.-</td>
+                            <td>{{u[0]}}</td>
+                            <td>{{u[1]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+      </div>
+    </div>
   </body>
 
 </template>
