@@ -15,7 +15,7 @@ public class grafo {
     	session.run(createPerson);
     }
     public static void main(String[] args) {
-        Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "asd123fgh456" ) );
+        Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "123456789" ) );
         Session session = driver.session();
 
         session.run("match (a)-[r]->(b) delete r");
