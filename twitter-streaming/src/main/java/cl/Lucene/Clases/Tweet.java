@@ -14,6 +14,10 @@ public class Tweet {
 	private String year;
 	private String time;
 	private String commune;
+	private String followers;
+	private String retweets;
+	private String likes;
+	private String mentions;
 	
 	
 	public Tweet(Document tweet)
@@ -27,6 +31,10 @@ public class Tweet {
 		this.setYear(tweet.getString("year"));
 		this.setTime(tweet.getString("hour"));
 		this.setCommune(tweet.getString("commune"));
+		this.setRetweets(tweet.getString("retweets"));
+		this.setFollowers(tweet.getString("followers"));
+		this.setLikes(tweet.getString("likes"));
+		this.setMentions(tweet.getString("mentions"));
 	}
 
 
@@ -110,5 +118,45 @@ public class Tweet {
 
 	public void setCommune(String commune) {
 		this.commune = commune;
+	}
+
+
+	public String getFollowers() {
+		return followers;
+	}
+
+
+	public void setFollowers(String followers) {
+		this.followers = followers;
+	}
+
+
+	public String getRetweets() {
+		return retweets;
+	}
+
+
+	public void setRetweets(String retweets) {
+		this.retweets = retweets;
+	}
+
+
+	public String getLikes() {
+		return likes;
+	}
+
+
+	public void setLikes(String likes) {
+		this.likes = likes;
+	}
+
+
+	public String getMentions() {
+		return mentions;
+	}
+
+
+	public void setMentions(String mentions) {
+		this.mentions = mentions;
 	}
 }

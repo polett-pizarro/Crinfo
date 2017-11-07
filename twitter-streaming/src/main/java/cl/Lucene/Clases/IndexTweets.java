@@ -75,6 +75,9 @@ public class IndexTweets {
 		         doc.add(new StringField("year",tw.getYear() , Field.Store.YES));
 		         doc.add(new StringField("time", tw.getTime(), Field.Store.YES));
 		         doc.add(new StringField("commune", tw.getCommune(), Field.Store.YES));
+		         doc.add(new StringField("followers", tw.getFollowers(), Field.Store.YES));
+		         doc.add(new StringField("retweets", tw.getRetweets(), Field.Store.YES));
+		         doc.add(new StringField("likes", tw.getLikes(), Field.Store.YES));
 
 		         this.iWriter.addDocument(doc);
 		         System.out.println("Idenxado Correctamente");
