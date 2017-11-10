@@ -7,30 +7,21 @@
             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               AÑOS
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="Graph/{2017}">2017</a>
-              <a class="dropdown-item" href="#">2016</a>
-              <a class="dropdown-item" href="#">2015</a>
-            </div>
-          </div>
-          <div class="dropdown pull-right">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button class="dropdown-item" type="button" href="Graph/{2017}"> Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <tr v-for="u,i in anios">
+                 <button class="dropdown-item" type="button">{{u[1]}}</button>           
+              </tr>
             </div>
           </div>
           <div class="dropdown pull-right">
             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               DELITOS
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Delito 1</a>
-              <a class="dropdown-item" href="#">Delito 2</a>
-              <a class="dropdown-item" href="#">Delito 3</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+              <tr v-for="u,i in delitos">
+                 <button class="dropdown-item" type="button">{{u.crimeName}}</button>           
+              </tr>
+              
             </div>
           </div>
       </div>
@@ -57,7 +48,13 @@
         			{month:'Octubre', frequency: .200},
         			{month:'Noviembre', frequency: .300},
         			{month:'Diciembre', frequency: .940}
-        ]
+        ],
+        totalG:0,
+      GranRespuestaCrimenAnio:[],
+      RespuestaAnio:[],
+      RespuestaCrimen:[],
+      delitos:[],
+      anios:[]
       }
     },
     methods:{
@@ -319,26 +316,31 @@
       },
     mounted: function(){
       //this.cargar(this.data);
-      var totalG=0;
+      /*var totalG=0;
       var GranRespuestaCrimenAnio;
       var RespuestaAnio;
-      var RespuestaCrimen;
+      var RespuestaCrimen;*/
       this.$http.get('http://localhost:8082/crinfo/Crime/conTweets').then(
         respuesta=>{
           this.delitos=respuesta.body;
           //location.reload();
-          console.log("listo delitos");
+          console.log(this.delitos);
         },error=>{
           console.log(error);
       });
+
+      this.$http.get('http://localhost:8082/crinfo/tweet/year').then(
+        respuesta=>{
+          this.anios=respuesta.body;
+        });
       this.$http.get('http://localhost:8082/crinfo/month').then(
         salida=>{
           let auxs=salida.body;
           for (var i = auxs.length - 1; i >= 0; i--) {
-            totalG=totalG+auxs[i][0];
+            this.totalG=this.totalG+auxs[i][0];
           }
           for (i = auxs.length - 1; i >= 0; i--) {
-            this.data[i].frequency=auxs[i][0]/totalG;
+            this.data[i].frequency=auxs[i][0]/this.totalG;
           }
           this.cargar(this.data);
           console.log("total listo");
@@ -346,7 +348,7 @@
       this.$http.get('http://localhost:8082/crinfo/months/anio/crime').then(
         salida=>{
           console.log("AAAAS");
-          GranRespuestaCrimenAnio=salida.body;
+          this.GranRespuestaCrimenAnio=salida.body;
           //this.crearDataAnioCrimen(GranRespuestaCrimenAnio,'2017',1); //cual quier año e id de crimen
         },error=>{
           console.log("si hay error");
@@ -355,7 +357,7 @@
       this.$http.get('http://localhost:8082/crinfo/months/anio').then(
         salida=>{
           console.log("AAAAS");
-          RespuestaAnio=salida.body;
+          this.RespuestaAnio=salida.body;
           //this.crearDataAnio(RespuestaAnio,'2013'); cualquier anio
         },error=>{
           console.log("si hay error");
@@ -364,7 +366,7 @@
       this.$http.get('http://localhost:8082/crinfo/month/crime').then(
         salida=>{
           console.log("AAAAS");
-          RespuestaCrimen=salida.body;
+          this.RespuestaCrimen=salida.body;
           //this.crearDataCrimen(RespuestaCrimen,1);
         },error=>{
           console.log("si hay error");

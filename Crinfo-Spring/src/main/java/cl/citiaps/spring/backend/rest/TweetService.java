@@ -111,4 +111,10 @@ public class TweetService {
     public Iterable<HashMap<Integer,HashMap<String, String>>> getTweetsYearMonthsAll(){
         return tweetRepository.findTweetsYearMonthsAll();
     }
+    @RequestMapping(value="/tweet/year",method=RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<Integer,String>> getCountCrimenAnio(){
+        return  tweetRepository.findCountCrimenAnio();
+    }
+    
 }

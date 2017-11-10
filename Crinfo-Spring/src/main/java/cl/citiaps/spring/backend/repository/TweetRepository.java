@@ -93,4 +93,8 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 		"GROUP BY (SUBSTRING(tweet.publication_date, 6, 2)),(SUBSTRING(tweet.publication_date, 1, 4)) " + 
 		"Order by (SUBSTRING(tweet.publication_date, 1, 4)), (SUBSTRING(tweet.publication_date, 6, 2))", nativeQuery=true)
 	public Iterable<HashMap<Integer,HashMap<String, String>>> findTweetsYearMonthsAll();
+
+	@Query(value="SELECT count(SUBSTRING(tweet.publication_date, 1, 4)),(SUBSTRING(tweet.publication_date, 1, 4)) " +
+		"as anio FROM crinfo.tweet group by anio;", nativeQuery=true)
+	public Iterable<HashMap<Integer,String>> findCountCrimenAnio();
 }
