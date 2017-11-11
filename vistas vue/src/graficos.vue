@@ -4,24 +4,27 @@
       <div class="panel-heading">
           <h1><i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO</h1>
           <div class="dropdown pull-right">
-            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              AÑOS
+            <button class="btn btn-info dropdown-toggle" type="button" id="menuAnio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{this.mAnio}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <tr v-for="u,i in anios">
-                 <button class="dropdown-item" type="button">{{u[1]}}</button>           
+                 <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,u[1])">{{u[1]}}</button>           
               </tr>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,'AÑOS')">AÑOS</button>
             </div>
           </div>
           <div class="dropdown pull-right">
-            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              DELITOS
+            <button class="btn btn-info dropdown-toggle" type="button" id="menuDelito" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{this.mDelito}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
               <tr v-for="u,i in delitos">
-                 <button class="dropdown-item" type="button">{{u.crimeName}}</button>           
+                 <button class="dropdown-item" type="button" id="i" v-on:click="cambiar(u.crimeName,mAnio)">{{u.crimeName}}</button>           
               </tr>
-              
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" type="button" v-on:click="cambiar('DELITOS',mAnio)">DELITOS</button>
             </div>
           </div>
       </div>
@@ -54,11 +57,59 @@
       RespuestaAnio:[],
       RespuestaCrimen:[],
       delitos:[],
-      anios:[]
+      anios:[],
+      mDelito:'DELITOS',
+      mAnio:'AÑOS',
+      original:[]
       }
     },
     methods:{
-      cargar:function(data){
+        cambiar:function(delito,anio){
+          if (this.mDelito==delito && this.mAnio==anio){
+            console.log("no se hizo nada");
+            return ;
+          }
+
+          this.mDelito=delito;
+          this.mAnio=anio;
+          var datos;
+          var id;
+          if(this.mDelito=='DELITOS' && this.mAnio=='AÑOS'){
+            console.log("cargar el original");
+            //cargar original
+          }
+          else if (this.mDelito=='DELITOS'){
+            //significa que cambio el año
+            datos=this.crearDataAnio(this.RespuestaAnio,this.mAnio);
+            this.recargar(datos);
+          }
+          else if (this.mAnio=='AÑOS'){
+           //significa que cambio de delito
+            
+            for (var i = this.delitos.length - 1; i >= 0; i--) {
+              if(this.delitos[i].crimeName==delito){
+                var id=this.delitos[i].idCrime;
+                break;
+              }
+            }
+            datos=this.crearDataCrimen(this.RespuestaCrimen,id);  
+            this.recargar(datos);          
+          }
+          else{
+          
+            for (var i = this.delitos.length - 1; i >= 0; i--) {
+              if(this.delitos[i].crimeName==delito){
+                var id=this.delitos[i].idCrime;
+                break;
+              }
+            }
+            datos=this.crearDataAnioCrimen(this.GranRespuestaCrimenAnio,this.mAnio,id);
+            this.recargar(datos);
+          }
+
+
+        },
+        cargar:function(data){
         var svg = d3.select(".grafico"),
         margin = {top: 20, right: 5, bottom: 30, left: 80},
         width = +svg.attr("width") - margin.left - margin.right,
@@ -97,6 +148,10 @@
           .attr("width", x.bandwidth())
           .attr("height", function(d) { return height - y(d.frequency); });
       },
+      recargar:function(data){
+        
+      },
+
       crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
            var newData=[
                 {month:'Enero', frequency: 0},
@@ -343,6 +398,7 @@
             this.data[i].frequency=auxs[i][0]/this.totalG;
           }
           this.cargar(this.data);
+          this.original=this.data;
           console.log("total listo");
       });
       this.$http.get('http://localhost:8082/crinfo/months/anio/crime').then(
