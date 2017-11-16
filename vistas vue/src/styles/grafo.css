@@ -1,11 +1,22 @@
+.grafo{
+	border-style: solid;
+	border-width: 5px;
+
+}
+
+
 .node {
     stroke: #fff;
     stroke-width: 1.5px;
+   
+    
 }
 .link {
     stroke: #999;
     stroke-opacity: .6;
     fill: none;
+
+    
 }
 .node text {
   font: 9px helvetica;

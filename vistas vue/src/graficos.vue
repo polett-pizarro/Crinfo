@@ -28,7 +28,7 @@
             </div>
           </div>
       </div>
-    	<svg class="grafico" width="1000" height="500"></svg>
+    	<svg class="grafico" width="1000" height="500" ></svg>
     </div>
   </body>
 
@@ -122,7 +122,7 @@
   			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         x.domain(data.map(function(d) { return d.month; }));
-        y.domain([0, 1]); // eje y en rangos de 0% hasta el 100%
+        y.domain([0, d3.max(data, function(d) { return d.frequency; })]);//([0, 1]); // eje y en rangos de 0% hasta el 100%
 
         g.append("g")
 			      .attr("class", "axis axis--x")
