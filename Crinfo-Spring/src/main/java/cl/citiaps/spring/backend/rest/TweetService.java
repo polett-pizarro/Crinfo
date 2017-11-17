@@ -130,6 +130,11 @@ public class TweetService {
     @ResponseBody
     public Iterable<HashMap<String,Integer>> getComunnesForCrime(@PathVariable("crime") String crime) {
         return tweetRepository.findCommunesCrime(Integer.parseInt(crime));
+    }*/
+
+    @RequestMapping(value = "/TuitsCommunes/crime/year", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<String, HashMap<Integer, HashMap<String, Integer>>>> getCommunesCrimeYear(){
+        return tweetRepository.findCommunesCrimeYear();
     }
-    */
 }

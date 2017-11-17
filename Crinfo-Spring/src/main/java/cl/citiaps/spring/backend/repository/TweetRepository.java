@@ -117,4 +117,10 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 		"GROUP BY tweet.id_commune " +
 		"ORDER BY count(tweet.id_tweet) desc", nativeQuery=true)
 	public Iterable<HashMap<String,Integer>> findCommunesCrime(@Param("crime") Integer crime);	
+
+	@Query(value = "SELECT commune.name_commune, count(tweet.id_tweet),substring(tweet.publication_date,1,4),tweet.id_crime FROM tweet, commune " +
+		" WHERE tweet.id_commune = commune.id_commune " +
+		" GROUP BY tweet.id_commune,substring(tweet.publication_date,1,4),tweet.id_crime " +
+		" ORDER BY substring(tweet.publication_date,1,4) desc,tweet.id_crime,commune.id_commune", nativeQuery=true)
+	public Iterable<HashMap<String, HashMap<Integer, HashMap<String, Integer>>>> findCommunesCrimeYear();
 }
