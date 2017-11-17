@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import cl.citiaps.spring.backend.entities.Tweet;
 
 public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integer> {
+
 	@Query(value = "SELECT commune.name_commune, count(tweet.id_tweet) FROM tweet, commune  " +
 		"WHERE tweet.id_commune = commune.id_commune " +
 		"GROUP BY tweet.id_commune " +
@@ -62,7 +63,6 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 		nativeQuery=true)
 	public Integer findTweetsDateCrime(@Param("year") String year, @Param("month") String month, @Param("crime") Integer crime);	
 
-
 	@Query(value = "SELECT count(id_tweet), 1 FROM tweet " + 
 		"WHERE tweet.publication_date LIKE CONCAT(:year, '-01%')" +
 		"UNION ALL SELECT count(id_tweet), 2 FROM tweet" +
@@ -97,4 +97,24 @@ public interface TweetRepository extends PagingAndSortingRepository<Tweet, Integ
 	@Query(value="SELECT count(SUBSTRING(tweet.publication_date, 1, 4)),(SUBSTRING(tweet.publication_date, 1, 4)) " +
 		"as anio FROM crinfo.tweet group by anio;", nativeQuery=true)
 	public Iterable<HashMap<Integer,String>> findCountCrimenAnio();
+
+	@Query(value = "SELECT commune.name_commune, count(tweet.id_tweet) FROM tweet, commune  " +
+		"WHERE tweet.id_commune = commune.id_commune " +
+		"GROUP BY tweet.id_commune " +
+		"ORDER BY count(tweet.id_tweet) desc ", nativeQuery=true)
+	public Iterable<HashMap<String,Integer>> findCommunes();
+
+	@Query(value = "SELECT commune.name_commune, count(tweet.id_tweet) FROM tweet, commune  " +
+		"WHERE tweet.id_commune = commune.id_commune " +
+		"AND tweet.publication_date LIKE CONCAT(:year,'__%')"+
+		"GROUP BY tweet.id_commune " +
+		"ORDER BY count(tweet.id_tweet) desc ", nativeQuery=true)
+	public Iterable<HashMap<String,Integer>> findCommunesYear(@Param("year") String year);
+
+	@Query(value = "SELECT commune.name_commune, count(tweet.id_tweet) FROM tweet, commune" +
+		"WHERE tweet.id_crime = :crime" +
+		"AND tweet.id_commune = commune.id_commune"+
+		"GROUP BY tweet.id_commune " +
+		"ORDER BY count(tweet.id_tweet) desc", nativeQuery=true)
+	public Iterable<HashMap<String,Integer>> findCommunesCrime(@Param("crime") Integer crime);	
 }
