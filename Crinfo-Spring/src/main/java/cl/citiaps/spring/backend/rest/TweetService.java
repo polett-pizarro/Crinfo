@@ -8,21 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-//import cl.citiaps.spring.backend.repository.CrimeRepository;
 import cl.citiaps.spring.backend.repository.TweetRepository;
 import cl.citiaps.spring.backend.entities.Tweet;
-//import cl.citiaps.spring.backend.repository.CommuneRepository;
 
-@CrossOrigin//se debe poner el puerto que ustedes usan en Vue;
+@CrossOrigin
 @RestController  
 @RequestMapping("/")
 public class TweetService {
-	
-	/*@Autowired
-    private CrimeRepository crimeRepository;
-    @Autowired
-    private CommuneRepository communeRepository;*/
     @Autowired
     private TweetRepository tweetRepository;
     
@@ -37,6 +29,7 @@ public class TweetService {
     public Iterable<HashMap<String,Integer>> getTopCommunes() {
         return tweetRepository.findTopCommune();
     }
+    
     @RequestMapping(value = "/{year}", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Integer> getCrimesForDateCrimeAll(@PathVariable("year") String year) {
@@ -72,11 +65,13 @@ public class TweetService {
     public Iterable<HashMap<String,Integer>> getTopCrime() {
         return tweetRepository.findTopCrime();
     }
+    
     @RequestMapping(value="/month/{mes}",method =RequestMethod.GET)
     @ResponseBody
     public Integer getTweetsGeneralMonth(@PathVariable("mes") String mes){
          return  tweetRepository.findTweetsGeneralMonth(mes);
     }
+    
     @RequestMapping(value="/totalTs",method=RequestMethod.GET)
     @ResponseBody
     public Integer getCountTweets(){
@@ -106,15 +101,35 @@ public class TweetService {
     public Iterable<HashMap<String, HashMap<String, HashMap<Integer, Integer>>>> getTweetsYearMonthsCrimeAll(){
         return tweetRepository.findTweetsYearMonthsCrimeAll();
     }
+    
     @RequestMapping(value="/months/anio",method=RequestMethod.GET)
     @ResponseBody
     public Iterable<HashMap<Integer,HashMap<String, String>>> getTweetsYearMonthsAll(){
         return tweetRepository.findTweetsYearMonthsAll();
     }
+
     @RequestMapping(value="/tweet/year",method=RequestMethod.GET)
     @ResponseBody
     public Iterable<HashMap<Integer,String>> getCountCrimenAnio(){
         return  tweetRepository.findCountCrimenAnio();
     }
+
+    @RequestMapping(value = "/TuitsCommunes", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<String,Integer>> getCommunes() {
+        return tweetRepository.findCommunes();
+    }
     
+    @RequestMapping(value = "/TuitsCommunesForYear/{year}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<String,Integer>> getComunnesForYear(@PathVariable("year") String year) {
+        return tweetRepository.findCommunesYear(year);
+    }
+    /* no funciona
+    @RequestMapping(value = "/TuitsCommunesForCrime/{crime}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HashMap<String,Integer>> getComunnesForCrime(@PathVariable("crime") String crime) {
+        return tweetRepository.findCommunesCrime(Integer.parseInt(crime));
+    }
+    */
 }
