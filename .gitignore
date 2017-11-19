@@ -23,3 +23,7 @@
 
 /build/
 /bin/
+
+vistas vue/\.gradle/3\.2\.1/taskArtifacts/
+
+\.gradle/3\.2\.1/taskArtifacts/

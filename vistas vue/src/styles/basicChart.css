@@ -19,11 +19,11 @@
 
 
 .bar {
-  fill: DeepSkyBlue ;
+  fill: #41c1b7 ;
 }
 
 .bar:hover {
-  fill: DodgerBlue  ;
+  fill: Teal  ;
 }
 
 .axis--x path {
