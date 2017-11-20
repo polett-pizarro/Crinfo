@@ -23,6 +23,7 @@ export default{
       var delitos=[]
       var data=[];
       var original=[];
+      var max;
         return{
            comunas,
            data,
@@ -154,6 +155,15 @@ export default{
       }
       this.max=sum;
       return salida; 
+    },
+    cargarText:function(comuna){
+      var text="";
+      for (var i = this.data.length - 1; i >= 0; i--) {
+        if(this.data[i].comuna==comuna){
+          text=comuna + "\n delitos:" + this.data[i].tweet.toString() + "\n porcentaje:" + Math.round(this.data[i].porcentaje *100).toString() + "%";
+        }
+      }
+      return text;
     }
 },
   mounted: function(){
@@ -207,7 +217,7 @@ export default{
 
       map.fitBounds(geojson.getBounds());
 geojson.eachLayer(function (layer) {
-          layer.bindPopup(layer.feature.properties.shape_area.toString());
+          layer.bindPopup(cargarText(layer.feature.properties.NOMBRE_DPT));
       });
         map.fitBounds(geojson.getBounds());
 
@@ -357,6 +367,15 @@ geojson.eachLayer(function (layer) {
       }
       console.log(map);
 
+      function cargarText(comuna){
+      var text="";
+      for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i].comuna==comuna){
+          text=comuna + "<br> Delitos: " + data[i].tweet.toString() + "<br> Porcentaje: " + Math.round(data[i].porcentaje *100).toString() + "%";
+        }
+      }
+      return text;
+    }
       
 
   }

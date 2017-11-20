@@ -80,7 +80,9 @@
           var datos;
           var id;
           if(this.mDelito=='DELITOS' && this.mAnio=='AÑOS'){
-            console.log("cargar el original");
+            this.recargar(this.original);
+            //console.log("cargar el original");
+
             //cargar original
           }
           else if (this.mDelito=='DELITOS'){
@@ -185,6 +187,7 @@
         g.select(".axis.axis--x") // change the x axis
             .duration(750)
             .call(d3.axisBottom(x));
+
         g.select(".axis.axis--y") // change the y axis
             .duration(750)
             .call(d3.axisLeft(y).ticks(20, "%"));
@@ -193,6 +196,7 @@
           .append("rect")
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.month); })
+          .transition()
           .attr("y", function(d) { return y(d.frequency); })
           .attr("width", x.bandwidth())
           .attr("height", function(d) { return height - y(d.frequency); });
