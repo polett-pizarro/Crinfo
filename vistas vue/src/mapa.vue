@@ -1,7 +1,14 @@
 <template >
-  <div >
-    <h2>MAPA</h2>
-     <div id="mapid" style="height: 600px; width: 100%;" ></div>
+  <div class="navi" >
+    <br>
+    <h2>
+      <i class="fa fa-map"></i>
+      MAPA
+    </h2>
+    <hr>
+    <div class="contentMapa">
+      <div class = "mapa" id="mapid" style="height: 600px; width: 100%;" ></div>
+    </div>
   </div>
 </template>
 

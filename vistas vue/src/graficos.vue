@@ -2,7 +2,8 @@
   <body class="navi">
     <div class="panel panel-default">
       <div class="panel-heading">
-          <h1><i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO</h1>
+          <h2><i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO</h2>
+          <hr>
           <div class="dropdown pull-right">
             <button class="btn btn-info dropdown-toggle" type="button" id="menuAnio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{this.mAnio}}
