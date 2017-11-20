@@ -1,36 +1,52 @@
 <template>
-  <body class="navi">
-    <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-info"></i> ¿DE QUÉ SE ESTÁ HABLANDO?</font></h1>
-    <svg class="grafo" width="1100" height="900"></svg>
-    <h1 class="page-header"><font color="#0e1a35"><i class="fa fa-trophy" aria-hidden="true"></i> TWITTEROS CON MÁS INFLUENCIA</font></h1>
-    <div class="panel panel-info col-lg-6">
-      <div class="panel-heading">
-          <i class="fa fa-bell fa-fw"></i> Top 10 Twitteros
-      </div>
-      <!-- /.panel-heading -->
-      <div class="panel-body">
-            <div class="table-responsive">
-                  <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>Pos.</th>
-                            <th>Nombre</th>
-                            <th>Influencia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="u,i in top">
-                            <td>{{i+1}}.-</td>
-                            <td>{{u.row[0]}}</td>
-                            <td>{{u.row[1]}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+  <div id="wrapper" class="navi">
+    <div id="page-wrapper">
+      <div class="row">
+        <div class="col-lg-10">
+          <br>
+          <h2 class="page-header"><font color="#0e1a35"><i class="fa fa-info"></i> ¿DE QUÉ SE ESTÁ HABLANDO?</font></h2>
+          <hr>
+          <svg class="grafo" width="1000" height="750"></svg>
+          <br>
+          <br>
+          <h2 class="page-header">
+            <font color="#0e1a35">
+              <i class="fa fa-trophy" aria-hidden="true"></i> 
+              TWITTEROS CON MÁS INFLUENCIA
+            </font>
+          </h2>
+          <hr>
+          <div class="panel panel-info col-lg-6">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Top 10 Twitteros
             </div>
-            <!-- /.table-responsive -->
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>Pos.</th>
+                      <th>Nombre</th>
+                      <th>Influencia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="u,i in top">
+                      <td>{{i+1}}.-</td>
+                      <td>{{u.row[0]}}</td>
+                      <td>{{u.row[1]}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</template>
 
 </template>
 <script>
@@ -190,9 +206,9 @@
         var color = d3.scaleOrdinal(d3.schemeCategory20);
 
         var simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().distance(10).strength(0.5))
+            .force("link", d3.forceLink().distance(30).strength(1))
             .force("charge", d3.forceManyBody())
-            .force("center", d3.forceCenter(width / 2, height / 2));
+            .force("center", d3.forceCenter(width / 2, height / 1.8));
 
           var graph = nodos;
           var nodes = graph.nodes,
@@ -218,16 +234,30 @@
             .data(nodes.filter(function(d) { return d.name; }))
             .enter().append("circle")
               .attr("class", "node")
-              .attr("r", 8)
-              .attr("fill", function(d) { return color(d.group); })
+              .attr("r",function(d) {
+                var returnRadio;
+                if (d.group === 0) { returnRadio = 8;}
+                else { returnRadio = 20;} 
+              return returnRadio;
+                      })
+              .attr("fill", function(d) {
+                var returnColor;
+                if (d.group === 0) { returnColor = "#58ACFA";}
+                else if (d.group === 1){ returnColor = "#FE9A2E";}
+                else if (d.group === 2){ returnColor = "#9AFE2E";}
+                else if (d.group === 3){ returnColor = "#F7FE2E";}
+                else if (d.group === 4){ returnColor = "#FE2E2E";}
+                else if (d.group === 5){ returnColor = "#A901DB";} 
+              return returnColor;
+                      })
               .call(d3.drag()
                   .on("start", dragstarted)
                   .on("drag", dragged)
                   .on("end", dragended));
 
-          node.append("title")
+          node.append("svg:title")
               .text(function(d) { return d.name; });
-
+              
           node.append("text")
               .attr("dx", 10)
               .attr("dy", ".35em")

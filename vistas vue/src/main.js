@@ -32,9 +32,9 @@ Vue.use(VueResource);
 
 const routes = [
   { path:'/Main', alias: '/', component: Main},
-  { path: '/Grafico', component: Graficos},
-  { path: '/Grafo', component: Grafo},
-  {path:'/Mapa',component:Mapa}
+  { path:'/Grafico', component: Graficos},
+  { path:'/Grafo', component: Grafo},
+  { path:'/Mapa',component: Mapa}
   //lo mismo que lo anterior para agregar rutas
   //{path:'/actors2', component: Actors2}
 ]
