@@ -1,7 +1,7 @@
 <template >
-  <div class="navi" >
+  <div >
     <br>
-    <h2>
+    <h2 class = "navi">
       <i class="fa fa-map"></i>
       MAPA
     </h2>
@@ -10,6 +10,7 @@
       <div class = "mapa" id="mapid" style="height: 600px; width: 100%;" ></div>
     </div>
   </div>
+  
 </template>
 
 
