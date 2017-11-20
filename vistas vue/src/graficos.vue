@@ -2,37 +2,41 @@
   <body class="navi">
     <div class="panel panel-default">
       <div class="panel-heading">
-          <h2><i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO</h2>
-          <hr>
-          <div class="dropdown pull-right">
+        <h2><i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO</h2>
+        <hr>
+        <div class="pull-right row" style="margin-right:40px">
+          <div class="dropdown">
             <button class="btn btn-info dropdown-toggle" type="button" id="menuAnio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{this.mAnio}}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1"style="margin">
               <tr v-for="u,i in anios">
-                 <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,u[1])">{{u[1]}}</button>           
+                <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,u[1])">{{u[1]}}</button>
               </tr>
-              <div class="dropdown-divider"></div>
+              <div class="dropdown-divider">
+              </div>
               <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,'AÑOS')">AÑOS</button>
             </div>
           </div>
-          <div class="dropdown pull-right">
+          <div class="dropdown">
             <button class="btn btn-info dropdown-toggle" type="button" id="menuDelito" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{this.mDelito}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
               <tr v-for="u,i in delitos">
-                 <button class="dropdown-item" type="button" id="i" v-on:click="cambiar(u.crimeName,mAnio)">{{u.crimeName}}</button>           
+                <button class="dropdown-item" type="button" id="i" v-on:click="cambiar(u.crimeName,mAnio)">{{u.crimeName}}</button>
               </tr>
-              <div class="dropdown-divider"></div>
-              <button class="dropdown-item" type="button" v-on:click="cambiar('DELITOS',mAnio)">DELITOS</button>
+              <div class="dropdown-divider">
+              </div>
+              <button class="dropdown-item" type="button" v-on:click="cambiar('DELITOS',mAnio)">DELITOS
+              </button>
             </div>
           </div>
+        </div>
       </div>
     	<svg class="grafico" width="1000" height="500" ></svg>
     </div>
   </body>
-
 </template>
 
 <script>
@@ -86,18 +90,18 @@
           }
           else if (this.mAnio=='AÑOS'){
            //significa que cambio de delito
-            
+
             for (var i = this.delitos.length - 1; i >= 0; i--) {
               if(this.delitos[i].crimeName==delito){
                 var id=this.delitos[i].idCrime;
                 break;
               }
             }
-            datos=this.crearDataCrimen(this.RespuestaCrimen,id);  
-            this.recargar(datos);          
+            datos=this.crearDataCrimen(this.RespuestaCrimen,id);
+            this.recargar(datos);
           }
           else{
-          
+
             for (var i = this.delitos.length - 1; i >= 0; i--) {
               if(this.delitos[i].crimeName==delito){
                 var id=this.delitos[i].idCrime;
@@ -112,7 +116,7 @@
         },
         cargar:function(data){
         var svg = d3.select(".grafico"),
-        margin = {top: 20, right: 5, bottom: 30, left: 80},
+        margin = {top: 20, right: 5, bottom: 50, left: 80},
         width = +svg.attr("width") - margin.left - margin.right,
         height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -120,6 +124,7 @@
   			y = d3.scaleLinear().rangeRound([height, 0]);
 
         var g = svg.append("g")
+            .attr("class", "g")
   			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         x.domain(data.map(function(d) { return d.month; }));
@@ -129,6 +134,11 @@
 			      .attr("class", "axis axis--x")
 			      .attr("transform", "translate(0," + height + ")")
 			      .call(d3.axisBottom(x));
+
+        g.append("text")
+            .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+            .style("text-anchor", "middle")
+            .text("Meses");
 
 			  g.append("g")
 			      .attr("class", "axis axis--y")
@@ -140,6 +150,14 @@
 			      .attr("text-anchor", "end")
 			      .text("Frequency");
 
+        g.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("% Registrado");
+
         g.selectAll(".bar")
           .data(data)
           .enter().append("rect")
@@ -150,9 +168,35 @@
           .attr("height", function(d) { return height - y(d.frequency); });
       },
       recargar:function(data){
-        
-      },
+        var svg = d3.select(".grafico"),
+        margin = {top: 20, right: 5, bottom: 30, left: 80},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom;
 
+        var x = d3.scaleBand().rangeRound([0, width]).padding(0.2),
+  			y = d3.scaleLinear().rangeRound([height, 0]);
+
+        // Scale the range of the data again
+        x.domain(data.map(function(d) { return d.month; }));
+        y.domain([0, d3.max(data, function(d) { return d.frequency; })]);//([0, 1]); // eje y en rangos de 0% hasta el 100%
+
+        // Select the section we want to apply our changes to
+        var g = d3.select(".g").transition();
+
+        // Make the changes
+        g.select(".axis.axis--x") // change the x axis
+            .duration(750)
+            .call(d3.axisBottom(x));
+        g.select(".axis.axis--y") // change the y axis
+            .duration(750)
+            .call(d3.axisLeft(y).ticks(15, "%"));
+        g.selectAll(".bar")   // change the line
+            .duration(750)
+            .attr("x", function(d) { return x(d.month); })
+            .attr("y", function(d) { return y(d.frequency); })
+            .attr("width", x.bandwidth())
+            .attr("height", function(d) { return height - y(d.frequency); });
+      },
       crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
            var newData=[
                 {month:'Enero', frequency: 0},
