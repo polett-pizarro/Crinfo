@@ -68,7 +68,7 @@ public class SearcherTweets {
 			 String sURL = "jdbc:mysql://localhost:3306/crinfo?autoReconnect=true&useSSL=false";
 			 Connection con = null;
 			 Class.forName(sDriver).newInstance(); 
-			 con = DriverManager.getConnection(sURL,"root","gramschmidt");
+			 con = DriverManager.getConnection(sURL,"Jorge","Pare19345...");
 			 PreparedStatement stmt = con.prepareStatement("INSERT INTO tweet VALUES (?,?,?,?,?)");
 			 
 			 for(int i=0;i<hits.length;i++){

@@ -12,18 +12,15 @@
 export default{
   data(){
       var comunas=[];
+      var delitos=[]
       var data=[];
-      var anioDelito=[];
-      var forAnio=[];
-      var forDelito=[];
       var original=[];
         return{
            comunas,
            data,
-           anioDelito,
-           forAnio,
-           forDelito,
-           original
+           delitos,
+           original,
+           max,
         }
     },
   methods:{
@@ -118,8 +115,7 @@ export default{
 
         salida[i].porcentaje=salida[i].tweet/sum;
       }
-      return salida;
-      
+      return salida;  
     },
     filtroOriginal:function(original,comunas){
       var salida=[];
@@ -132,7 +128,7 @@ export default{
           var datDelito=parseInt(original[j][3]);
           var datTweet=original[j][1];
           var datComuna=original[j][0];
-          if(datComuna=comuna){
+          if(datComuna==comuna){
             sumtweet=sumtweet+datTweet;
             sum=sum+datTweet;
           }
@@ -146,13 +142,15 @@ export default{
         if (sum ==0){
           break;
         }
-
         salida[i].porcentaje=salida[i].tweet/sum;
       }
+      this.max=sum;
       return salida; 
     }
 },
   mounted: function(){
+      var data;
+      var max;
       var p1=this.$http.get('http://localhost:8082/crinfo/Commune').then(
         respuesta=>{
           this.comunas=respuesta.body;
@@ -169,7 +167,41 @@ export default{
         },error=>{
           console.log(error);
       });
-      Promise.all([p1,p2]).then(values=>{
+      var p3=this.$http.get('http://localhost:8082/crinfo/Crime').then(
+        respuesta=>{
+          this.delitos=respuesta.body;
+          //location.reload();
+          console.log(this.delitos);
+        },error=>{
+          console.log(error);
+      });
+
+
+      Promise.all([p1,p2,p3]).then(values=>{
+        this.data=this.filtroOriginal(this.original,this.comunas);
+        console.log(this.data);
+        data=this.data;
+        max=this.max;
+
+          map.createPane('labels');
+          map.getPane('labels').style.zIndex = 650;
+          map.getPane('labels').style.pointerEvents = 'none';
+
+        geojson = L.geoJson(mapGeo, {
+        style: style,
+        onEachFeature: onEachFeature
+         }).addTo(map);
+
+        geojson.eachLayer(function (layer) {
+          layer.bindPopup(layer.feature.properties.NOMBRE_DPT);
+      });
+
+
+      map.fitBounds(geojson.getBounds());
+geojson.eachLayer(function (layer) {
+          layer.bindPopup(layer.feature.properties.shape_area.toString());
+      });
+        map.fitBounds(geojson.getBounds());
 
 
       });
@@ -189,9 +221,7 @@ export default{
       var mapGeo=require('./comunas_santiago.geo.json');
       var geojson=L.geoJson(mapGeo).addTo(map);
 
-      map.createPane('labels');
-      map.getPane('labels').style.zIndex = 650;
-      map.getPane('labels').style.pointerEvents = 'none';
+     
 
       /*var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
         attribution: '©OpenStreetMap, ©CartoDB'
@@ -204,20 +234,80 @@ export default{
 
       
 
-  function getColor(d) {
-    return d > 1000 ? '#800026' :
-           d > 500  ? '#BD0026' :
-           d > 200  ? '#E31A1C' :
-           d > 100  ? '#FC4E2A' :
-           d > 50   ? '#FD8D3C' :
-           d > 20   ? '#FEB24C' :
-           d > 10   ? '#FED976' :
-                      '#FFEDA0';
+  function getColor(comuna) {
+        var d;
+    console.log(comuna);
+     var r;
+
+    for (var i = data.length - 1; i >= 0; i--) {
+      //console.log(i);
+      if(data[i].comuna==comuna){
+        d=data[i].tweet;
+        console.log(d);
+        var a=d >= aux+aux*50   ? '#FF0000' :
+           d > aux+aux*49   ? '#FF0A00' :
+            d > aux+aux*48 ? '#FF1400' :
+           d > aux+aux*47 ? '#FF1E00' :
+           d > aux+aux*46  ? '#FF2800' :
+           d > aux+aux*45  ? '#FF3200' :
+           d > aux+aux*44  ? '#FF3C00' :
+           d > aux+aux*43  ? '#FF4600' :
+           d > aux+aux*42 ? '#FF5000' :
+           d > aux+aux*41  ? '#FF5A00' :
+           d > aux+aux*40  ? '#FF6400' :
+           d > aux+aux*39  ? '#FF6E00' :
+           d > aux+aux*38   ? '#FF7800' :
+           d > aux+aux*37   ? '#FF8C00' :
+           d > aux+aux*36 ? '#FF9600' :
+           d > aux+aux*35  ? '#FFA000' :
+           d > aux+aux*34  ? '#FFAA00' :
+           d > aux+aux*33  ? '#FFB400' :
+           d > aux+aux*32   ? '#FFBE00' :
+           d > aux+aux*31   ? '#FFC800' :
+           d > aux+aux*30 ? '#FFD200' :
+           d > aux+aux*29  ? '#FFDC00' :
+           d > aux+aux*28  ? '#FFE600' :
+           d > aux+aux*27  ? '#FFF000' :
+           d > aux+aux*26   ? '#FFFA00' :
+           d > aux+aux*25   ? '#FAFF00' :
+           d > aux+aux*24 ? '#F0FF00' :
+           d > aux+aux*23  ? '#e6ff00' :
+           d > aux+aux*22  ? '#dcff00' :
+           d > aux+aux*21  ? '#d2ff00' :
+           d > aux+aux*20   ? '#c8ff00' :
+           d > aux+aux*19   ? '#beff00' :
+           d > aux+aux*18 ? '#b4ff00' :
+           d > aux+aux*17  ? '#aaff00' :
+           d > aux+aux*16  ? '#a0ff00' :
+           d > aux+aux*15  ? '#96ff00' :
+           d > aux+aux*14   ? '#8cff00' :
+           d > aux+aux*13   ? '#82ff00' :
+          d > aux+aux*12 ? '#78ff00' :
+           d > aux+aux*11  ? '#6eff00' :
+           d > aux+aux*10  ? '#64ff00' :
+           d > aux+aux*9  ? '#5aff00' :
+           d > aux+aux*8   ? '#50ff00' :
+           d > aux+aux*7   ? '#46ff00' :
+          d > aux+aux*6 ? '#3cff00' :
+           d > aux+aux*5  ? '#32ff00' :
+           d > aux+aux*4  ? '#28ff00' :
+           d > aux+aux*3  ? '#1eff00' :
+           d > aux+aux*2   ? '#14ff00' :
+           d > aux+aux*1   ? '#0aff00' :
+           d > aux   ? '#00ff00' :
+                      '#00ff00';
+          console.log(a);
+        break;
+      }
+    }
+    var aux=max/51;
+            
+      return a;
       }
 
       function style(feature) {
     return {
-        fillColor: getColor(feature.properties.dis_elec),
+        fillColor: getColor(feature.properties.NOMBRE_DPT),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -259,33 +349,7 @@ export default{
       }
       console.log(map);
 
-     geojson = L.geoJson(mapGeo, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-
-     geojson.eachLayer(function (layer) {
-          layer.bindPopup(layer.feature.properties.NOMBRE_DPT);
-      });
-
-      map.fitBounds(geojson.getBounds());
-
-      this.$http.get('http://localhost:8082/crinfo/Commune').then(
-        respuesta=>{
-          this.comunas=respuesta.body;
-          //location.reload();
-          console.log(this.comunas);
-        },error=>{
-          console.log(error);
-      });
-      this.$http.get('http://localhost:8082/crinfo/TuitsCommunes/crime/year').then(
-        respuesta=>{
-          this.original=respuesta.body;
-          //location.reload();
-          console.log(this.original);
-        },error=>{
-          console.log(error);
-      });
+      
 
   }
 }
