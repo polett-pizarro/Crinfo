@@ -14,17 +14,7 @@ import './styles/dash.css';
 import './styles/basicChart.css';
 import './styles/grafo.css';
 import './styles/map.css';
-//require("../scss/font-awesome.scss");
 
-//require("../vendor/bootstrap/css/bootstrap.min.css");
-
-//require("../vendor/metisMenu/metisMenu.min.css");
-
-//require("../dist/css/sb-admin-2.css");
-
-//require("../vendor/morrisjs/morris.css");
-
-//require("../vendor/font-awesome/css/font-awesome.min.css");
 
 import App from './App.vue';
 Vue.use(VueRouter);
@@ -35,8 +25,6 @@ const routes = [
   { path:'/Grafico', component: Graficos},
   { path:'/Grafo', component: Grafo},
   { path:'/Mapa',component: Mapa}
-  //lo mismo que lo anterior para agregar rutas
-  //{path:'/actors2', component: Actors2}
 ]
 
 // Create the router instance and pass the `routes` option

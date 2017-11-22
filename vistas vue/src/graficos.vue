@@ -42,6 +42,7 @@
 <script>
   export default{
     data: function(){
+      
       return{
         data : [
         			{month:'Enero', frequency: .123},
@@ -80,7 +81,9 @@
           var datos;
           var id;
           if(this.mDelito=='DELITOS' && this.mAnio=='AÑOS'){
-            console.log("cargar el original");
+            this.recargar(this.original);
+            //console.log("cargar el original");
+
             //cargar original
           }
           else if (this.mDelito=='DELITOS'){
@@ -116,7 +119,7 @@
         },
         cargar:function(data){
         var svg = d3.select(".grafico"),
-        margin = {top: 20, right: 5, bottom: 50, left: 80},
+        margin = {top: 20, right: 5, bottom: 30, left: 80},
         width = +svg.attr("width") - margin.left - margin.right,
         height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -134,11 +137,6 @@
 			      .attr("class", "axis axis--x")
 			      .attr("transform", "translate(0," + height + ")")
 			      .call(d3.axisBottom(x));
-
-        g.append("text")
-            .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
-            .style("text-anchor", "middle")
-            .text("Meses");
 
 			  g.append("g")
 			      .attr("class", "axis axis--y")
@@ -158,7 +156,7 @@
             .style("text-anchor", "middle")
             .text("% Registrado");
 
-        g.selectAll(".bar")
+        this.bar=g.selectAll(".bar")
           .data(data)
           .enter().append("rect")
           .attr("class", "bar")
@@ -180,6 +178,9 @@
         x.domain(data.map(function(d) { return d.month; }));
         y.domain([0, d3.max(data, function(d) { return d.frequency; })]);//([0, 1]); // eje y en rangos de 0% hasta el 100%
 
+
+        g = d3.select(".g");
+        var bar = g.selectAll(".bar").remove().exit().data(data);
         // Select the section we want to apply our changes to
         var g = d3.select(".g").transition();
 
@@ -187,15 +188,19 @@
         g.select(".axis.axis--x") // change the x axis
             .duration(750)
             .call(d3.axisBottom(x));
+
         g.select(".axis.axis--y") // change the y axis
             .duration(750)
-            .call(d3.axisLeft(y).ticks(15, "%"));
-        g.selectAll(".bar")   // change the line
-            .duration(750)
-            .attr("x", function(d) { return x(d.month); })
-            .attr("y", function(d) { return y(d.frequency); })
-            .attr("width", x.bandwidth())
-            .attr("height", function(d) { return height - y(d.frequency); });
+            .call(d3.axisLeft(y).ticks(20, "%"));
+
+        bar.enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d) { return x(d.month); })
+          
+          .attr("y", function(d) { return y(d.frequency); })
+          .attr("width", x.bandwidth()).transition().duration(750)
+          .attr("height", function(d) { return height - y(d.frequency); });
       },
       crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
            var newData=[
