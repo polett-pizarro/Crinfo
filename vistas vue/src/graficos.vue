@@ -156,7 +156,7 @@
             .style("text-anchor", "middle")
             .text("% Registrado");
 
-        this.bar=g.selectAll(".bar")
+        g.selectAll(".bar")
           .data(data)
           .enter().append("rect")
           .attr("class", "bar")
@@ -197,9 +197,9 @@
           .append("rect")
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.month); })
-          
+          .transition().duration(750)
           .attr("y", function(d) { return y(d.frequency); })
-          .attr("width", x.bandwidth()).transition().duration(750)
+          .attr("width", x.bandwidth())
           .attr("height", function(d) { return height - y(d.frequency); });
       },
       crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
