@@ -42,6 +42,7 @@
 <script>
   export default{
     data: function(){
+      
       return{
         data : [
         			{month:'Enero', frequency: .123},
@@ -155,7 +156,7 @@
             .style("text-anchor", "middle")
             .text("% Registrado");
 
-        g.selectAll(".bar")
+        this.bar=g.selectAll(".bar")
           .data(data)
           .enter().append("rect")
           .attr("class", "bar")
@@ -196,9 +197,9 @@
           .append("rect")
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.month); })
-          .transition()
+          
           .attr("y", function(d) { return y(d.frequency); })
-          .attr("width", x.bandwidth())
+          .attr("width", x.bandwidth()).transition().duration(750)
           .attr("height", function(d) { return height - y(d.frequency); });
       },
       crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
