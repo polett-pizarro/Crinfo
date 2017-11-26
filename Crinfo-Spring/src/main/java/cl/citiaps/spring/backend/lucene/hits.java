@@ -90,7 +90,7 @@ public class hits {
 	        while (Tok.hasMoreElements())
 	        {
 	        	String palabra = (String)Tok.nextElement();
-	        	 SearcherTweets sTweets = new SearcherTweets("../indice_invertido_tweets","tweet","+"+palabra);
+	        	 SearcherTweets sTweets = new SearcherTweets("../indice_invertido_Neo4j","tweet","+"+palabra);
 	        	 TopDocs result=sTweets.searcher.search(sTweets.query,1000);
 		   		 Document doc=null;
 		   		 ScoreDoc[] hits = result.scoreDocs;

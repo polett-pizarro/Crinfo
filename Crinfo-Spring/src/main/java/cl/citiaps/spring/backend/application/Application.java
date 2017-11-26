@@ -5,11 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @ComponentScan({"cl.citiaps.spring.backend.application", "cl.citiaps.spring.backend.rest"})
 @EntityScan("cl.citiaps.spring.backend.entities")
 @EnableJpaRepositories("cl.citiaps.spring.backend.repository")
+@EnableScheduling
 public class Application {
 
 	public static void main(String[] args) {

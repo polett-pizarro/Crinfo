@@ -93,10 +93,7 @@ public class TwitterStreaming {
 	        resultados.add(lugar.indexOf("Isla de Maipo"));
 	        resultados.add(lugar.indexOf("El Monte"));
 	        resultados.add(lugar.indexOf("Padre Hurtado"));
-	        int chile = lugar.indexOf("chile");
-	        int Chilee = lugar.indexOf("Chile");
-	        int santiago = lugar.indexOf("santiago");
-	        int i = 0;
+	        int i = 1;
 	        int a ;
 	        while(i<52)
 	        {
@@ -104,22 +101,15 @@ public class TwitterStreaming {
 	        	if(com != -1)
 	        	{
 	        		a= i + 1;
-	        		System.out.println("la localizacion es:"+a+";deberia ser:"+lugar);
+	        		System.out.println("la comuna  es:"+a+";deberia ser:"+lugar);
 	        		return i+1;
 	        	}
 	        	i++;
 	        }
-	        if (chile != -1)
+	        int comu = resultados.get(0);
+	        if (comu != -1)
 	        {
-	        	System.out.println("la localizacion es: chile ;deberia ser:"+lugar);
-	        	return 1;
-	        }else if(Chilee != -1)
-	        {
-	        	System.out.println("la localizacion es: Chile ;deberia ser:"+lugar);
-	        	return 1;
-	        }else if(santiago != -1)
-	        {
-	        	System.out.println("la localizacion es: santiago ;deberia ser:"+lugar);
+        		System.out.println("la comuna es: 1 ;deberia ser:"+lugar);
 	        	return 1;
 	        }
 		}
@@ -257,7 +247,7 @@ private TwitterStreaming() {
 							//Se crea la BD
 							MongoDatabase database = mongoClient.getDatabase("Crinfo");
 							//Crea la colleccion
-							MongoCollection<Document> coll = database.getCollection("twSprint2");
+							MongoCollection<Document> coll = database.getCollection("twSprint3");
 										
 							//Crea un documento						
 							Document doc = new Document("id", status.getId())

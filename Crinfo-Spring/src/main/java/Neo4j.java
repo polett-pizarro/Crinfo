@@ -10,11 +10,11 @@ import org.neo4j.driver.v1.StatementResult;
 import cl.citiaps.spring.backend.lucene.Tweetl;
 import cl.citiaps.spring.backend.lucene.hits;
 
-public class grafo {
+public class Neo4j {
 	
 	public void insertarNEO4j(Session session)
 	{
-		grafo gr = new grafo();
+		Neo4j gr = new Neo4j();
 		int i = 0;
 		int j = 1;
 		hits h = new hits();
@@ -108,8 +108,8 @@ public class grafo {
 		}
     }
 	
-    public static void main(String[] args) {
-    	grafo gr = new grafo();
+	public void initNeo4j()
+	{
         Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "123456789" ) );
         Session session = driver.session();
         
@@ -121,18 +121,37 @@ public class grafo {
         session.run( "CREATE (c:Crime {name:'Delitos Violentos'})");        
         session.run( "CREATE (c:Crime {name:'Violencia Intrafamiliar'})");
         session.run( "CREATE (c:Crime {name:'Responsabilidad Penal Adolescente'})");
-        /*
-        gr.createPersonNode(session, "Jorge", 12, 5, 14, 5, 1);
-        gr.createPersonNode(session, "Jorge", 12, 5, 14, 5, 2);
-        gr.createPersonNode(session, "Polett", 10, 7, 28, 10, 1);
-        gr.createPersonNode(session, "Juan", 23, 17, 13, 9, 1);
-        gr.createPersonNode(session, "Joaquin", 7, 78, 34, 17, 1);
-        gr.createPersonNode(session, "Fabian", 12, 5, 14, 5, 3);
-        gr.createPersonNode(session, "Jorge", 12, 12, 14, 12, 4);
-        gr.createPersonNode(session, "Polett", 10, 10, 10, 10, 3);
-        gr.createPersonNode(session, "Juan", 23, 23, 23, 19, 4);
-        gr.createPersonNode(session, "Fabian", 7, 7, 7, 7, 5);
-        */
+
+        this.insertarNEO4j(session);
+        
+        StatementResult result = session.run("MATCH (n:Person) MATCH (c:Person) return (c.followers + "
+	        		+ "c.likes + c.mention + c.retweets)/count(n) as metrica, "
+	        		+ "c.name order by metrica desc Limit 10");
+        
+       	while (result.hasNext()){
+       		Record record = result.next();
+       		System.out.print(record.get("metrica"));
+       		System.out.println(record.get("c.name"));
+       	}
+
+        session.close();
+        driver.close();
+	}
+	
+    public static void main(String[] args) {
+    	Neo4j gr = new Neo4j();
+        Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "123456789" ) );
+        Session session = driver.session();
+        
+        session.run("match (a)-[r]->(b) delete r");
+        session.run("match (n) delete n");
+        
+        session.run( "CREATE (c:Crime {name:'Delitos Sexuales'})");
+        session.run( "CREATE (c:Crime {name:'Drogas'})");
+        session.run( "CREATE (c:Crime {name:'Delitos Violentos'})");        
+        session.run( "CREATE (c:Crime {name:'Violencia Intrafamiliar'})");
+        session.run( "CREATE (c:Crime {name:'Responsabilidad Penal Adolescente'})");
+
         gr.insertarNEO4j(session);
         
         StatementResult result = session.run("MATCH (n:Person) MATCH (c:Person) return (c.followers + "
