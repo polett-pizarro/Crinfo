@@ -41,17 +41,19 @@
     </div>
     <table style = "width: 79%; border-collapse: collapse; ">
       <tr>
-        <td style="border-radius: 20px 0px 0px 20px; background: #FF0000; text-align: center; padding: 11px;"> >=50% </td>
-        <td style="background: #FF4900; text-align: center; padding: 11px;"> 45% </td>
-        <td style="background: #FF7400; text-align: center; padding: 11px;"> 40% </td>
-        <td style="background: #FF9E00; text-align: center; padding: 11px;"> 35% </td>
-        <td style="background: #FFCD00; text-align: center; padding: 11px;"> 30% </td>
-        <td style="background: #FFF700; text-align: center; padding: 11px;"> 25% </td>
-        <td style="background: #D8FF00; text-align: center; padding: 11px;"> 20% </td>
-        <td style="background: #AEFF00; text-align: center; padding: 11px;"> 15% </td>
-        <td style="background: #80FF00; text-align: center; padding: 11px;"> 10% </td>
-        <td style="background: #51FF00; text-align: center;  padding: 11px;"> 5% </td>
-        <td style=" border-radius: 0px 20px 20px 0px; background: #2AFF00; text-align: center;  padding: 11px;"> >=1% </td>
+
+        <td style="border-radius: 20px 0px 0px 20px; background: #FF0000; text-align: center; padding: 11px;"> >={{(var2*100).toFixed(2)}}% </td>
+        <td style="background: #FF4900; text-align: center; padding: 11px;"> {{(var2*(100/11)*10).toFixed(2)}}% </td>
+        <td style="background: #FF7400; text-align: center; padding: 11px;"> {{(var2*(100/11)*9).toFixed(2)}}% </td>
+        <td style="background: #FF9E00; text-align: center; padding: 11px;"> {{(var2*(100/11)*8).toFixed(2)}}% </td>
+        <td style="background: #FFCD00; text-align: center; padding: 11px;"> {{(var2*(100/11)*7).toFixed(2)}}% </td>
+        <td style="background: #FFF700; text-align: center; padding: 11px;"> {{(var2*(100/11)*6).toFixed(2)}}% </td>
+        <td style="background: #D8FF00; text-align: center; padding: 11px;"> {{(var2*(100/11)*5).toFixed(2)}}% </td>
+        <td style="background: #AEFF00; text-align: center; padding: 11px;"> {{(var2*(100/11)*4).toFixed(2)}}% </td>
+        <td style="background: #80FF00; text-align: center; padding: 11px;"> {{(var2*(100/11)*3).toFixed(2)}}% </td>
+        <td style="background: #51FF00; text-align: center;  padding: 11px;">{{(var2*(100/11)*2).toFixed(2)}}% </td>
+
+        <td style=" border-radius: 0px 20px 20px 0px; background: #2AFF00; text-align: center;  padding: 11px;"> >={{(var2*(100/11)*1).toFixed(2)}}% </td>
       </tr>
     </table>
     <br>
@@ -315,7 +317,7 @@ export default{
         for (var i = data.length - 1; i >= 0; i--) {
           if(data[i].comuna==comuna){
             //console.log("igualdad", comuna);
-            text=comuna + "<br> Delitos: " + data[i].tweet.toString() + "<br> Porcentaje: " + Math.round(data[i].porcentaje *100).toString() + "%";
+            text=comuna + "<br> Delitos: " + data[i].tweet.toString() + "<br> Porcentaje: " + (data[i].porcentaje *100).toFixed(2).toString() + "%";
             return text;
           }
           //console.log(data[i].comuna,"!=",comuna);
@@ -453,95 +455,95 @@ export default{
            //d > aux2* 465   ? '#FF3200' :
            d > aux2* 46 ? '#FF3A00' :
            //d > aux2* 455   ? '#FF4600' :
-           d > aux2* 45  ? '#FF4900' :
+           //d > aux2* 45  ? '#FF4900' :
            //d > aux2* 445   ? '#FF4D00' :
            d > aux2* 44  ? '#FF5100' :
            //d > aux2* 435   ? '#FF5500' :
-           d > aux2* 43  ? '#FF5900' :
+           //d > aux2* 43  ? '#FF5900' :
            //d > aux2* 425   ? '#FF5D00' :
            d > aux2* 42   ? '#FF6100' :
            //d > aux2* 415   ? '#FF6400' :
-           d > aux2* 41   ? '#FF6C00' :
+           //d > aux2* 41   ? '#FF6C00' :
            //d > aux2* 405   ? '#FF7000' :
            d > aux2* 40  ? '#FF7400' :
            //d > aux2* 395   ? '#FF7800' :
-           d > aux2* 39  ? '#FF7C00' :
+           //d > aux2* 39  ? '#FF7C00' :
            //d > aux2* 385   ? '#FF8000' :
            d > aux2* 38   ? '#FF8300' :
            //d > aux2* 375   ? '#FF8700' :
-           d > aux2* 37   ? '#FF8B00' :
+           //d > aux2* 37   ? '#FF8B00' :
            //d > aux2* 365   ? '#FF8F00' :
            d > aux2* 36 ? '#FF9300' :
            //d > aux2* 355   ? '#FF9B00' :
-           d > aux2* 35  ? '#FF9E00' :
+           //d > aux2* 35  ? '#FF9E00' :
            //d > aux2* 345   ? '#FFA200' :
            d > aux2* 34  ? '#FFA600' :
            //d > aux2* 335   ? '#FFAA00' :
-           d > aux2* 33  ? '#FFAE00' :
+           //d > aux2* 33  ? '#FFAE00' :
            //d > aux2* 325   ? '#FFB200' :
            d > aux2* 32   ? '#FFB600' :
            //d > aux2* 315   ? '#FFBD00' :
-           d > aux2* 31   ? '#FFC500' :
+           //d > aux2* 31   ? '#FFC500' :
            //d > aux2* 305   ? '#FFC900' :
            d > aux2* 30  ? '#FFCD00' :
            //d > aux2* 295   ? '#FFD100' :
-           d > aux2* 29  ? '#FFD500' :
+           //d > aux2* 29  ? '#FFD500' :
            //d > aux2* 285   ? '#FFD800' :
            d > aux2* 28   ? '#FFDC00' :
            //d > aux2* 275   ? '#FFE000' :
-           d > aux2* 27   ? '#FFE400' :
+           //d > aux2* 27   ? '#FFE400' :
            //d > aux2* 265   ? '#FFE800' :
            d > aux2* 26 ? '#FFF000' :
            //d > aux2* 255   ? '#FFF300' :
-           d > aux2* 25  ? '#FFF700' :
+           //d > aux2* 25  ? '#FFF700' :
            //d > aux2* 245   ? '#FFFB00' :
            d > aux2* 24  ? '#FFFF00' :
            //d > aux2* 235   ? '#FBFF00' :
-           d > aux2* 23  ? '#F7FF00' :
+           //d > aux2* 23  ? '#F7FF00' :
            //d > aux2* 225   ? '#F3FF00' :
            d > aux2* 22   ? '#ECFF00' :
            //d > aux2* 215   ? '#E4FF00' :
-           d > aux2* 21   ? '#E0FF00' :
+           //d > aux2* 21   ? '#E0FF00' :
            //d > aux2* 205   ? '#DCFF00' :
            d > aux2* 20   ? '#D8FF00' :
            //d > aux2* 195  ? '#D4FF00' :
-           d > aux2* 19  ? '#D1FF00' :
+           //d > aux2* 19  ? '#D1FF00' :
            //d > aux2* 185   ? '#CDFF00' :
            d > aux2* 18   ? '#C9FF00' :
            //d > aux2* 175 ? '#C5FF00' :
-           d > aux2* 17 ? '#C1FF00' :
+           //d > aux2* 17 ? '#C1FF00' :
            //d > aux2* 165  ? '#B9FF00' :
            d > aux2* 16  ? '#B6FF00' :
            //d > aux2* 155   ? '#B2FF00' :
-           d > aux2* 15   ? '#AEFF00' :
+           //d > aux2* 15   ? '#AEFF00' :
            //d > aux2* 145 ? '#AAFF00' :
            d > aux2* 14  ? '#A6FF00' :
            //d > aux2* 135  ? '#A2FF00' :
-           d > aux2* 13  ? '#9EFF00' :
+           //d > aux2* 13  ? '#9EFF00' :
            //d > aux2* 125   ? '#97FF00' :
            d > aux2* 12   ? '#8FFF00' :
            //d > aux2* 115 ? '#8BFF00' :
-           d > aux2* 11   ? '#87FF00' :
+           //d > aux2* 11   ? '#87FF00' :
            //d > aux2* 105  ? '#83FF00' :
            d > aux2* 10 ? '#80FF00' :
            //d > aux2* 095   ? '#7CFF00' :
-           d > aux2* 9  ? '#78FF00' :
+           //d > aux2* 9  ? '#78FF00' :
            //d > aux2* 085   ? '#74FF00' :
            d > aux2* 8   ? '#70FF00' :
            //d > aux2* 075   ? '#6CFF00' :
-           d > aux2* 7   ? '#64FF00' :
+           //d > aux2* 7   ? '#64FF00' :
            //d > aux2* 065   ? '#5DFF00' :
            d > aux2* 6 ? '#59FF00' :
            //d > aux2* 055   ? '#55FF00' :
-           d > aux2* 5  ? '#51FF00' :
+           //d > aux2* 5  ? '#51FF00' :
            //d > aux2* 045   ? '#4DFF00' :
            d > aux2* 4  ? '#49FF00' :
            //d > aux2* 035   ? '#42FF00' :
-           d > aux2* 3  ? '#3AFF00' :
+           //d > aux2* 3  ? '#3AFF00' :
            //d > aux2* 025   ? '#36FF00' :
            d > aux2* 2   ? '#32FF00' :
            //d > aux2* 015   ? '#2EFF00' :
-           d > aux2* 1   ? '#2AFF00' :
+           //d > aux2* 1   ? '#2AFF00' :
            d > aux2   ? '#00FF00' :
                       '#00FF00';
           console.log(a);
@@ -658,7 +660,7 @@ this.geojson.eachLayer(function (layer) {
           attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
           maxZoom: 11,
           minZoom: 8,
-          id: 'mapbox.light',
+          id: 'mapbox.pirates',
           accessToken: 'pk.eyJ1Ijoiam9yZ2VwYXJlZGVzNzdraWNrIiwiYSI6ImNqYTJxOTJ2cjByZHYzM2xmMmJucnZ6eHYifQ.YQGAKNm1Kk2Nt-4gRuRMQA'
       }).addTo(this.map);
         this.map.doubleClickZoom.disable();
@@ -670,7 +672,7 @@ this.geojson.eachLayer(function (layer) {
       var text="";
       for (var i = data.length - 1; i >= 0; i--) {
         if(data[i].comuna==comuna){
-          text=comuna + "<br> Delitos: " + data[i].tweet.toString() + "<br> Porcentaje: " + Math.round(data[i].porcentaje *100).toString() + "%";
+          text=comuna + "<br> Delitos: " + data[i].tweet.toString() + "<br> Porcentaje: " + (data[i].porcentaje *100).toFixed(2).toString() + "%";
         }
       }
       return text;
