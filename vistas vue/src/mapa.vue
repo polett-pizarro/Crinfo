@@ -66,6 +66,7 @@ export default{
       var anios=[];
       var geojson;
       var map;
+      var var2=0;
         return{
            comunas,
            data,
@@ -76,10 +77,21 @@ export default{
           mAnio:'AÑOS',
           anios,
           geojson,
-          map
+          map,
+          var2
         }
     },
   methods:{
+    maxSinSan:function(data){
+      for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i].comuna!="Santiago"){
+          if(data[i].porcentaje>this.var2){
+            this.var2=data[i].porcentaje;
+          }
+        }
+      }
+      console.log(this.var2);
+    },
     cambiar:function(delito,anio){
       if (this.mDelito==delito && this.mAnio==anio){
             console.log("no se hizo nada");
@@ -163,6 +175,7 @@ export default{
 
         salida[i].porcentaje=salida[i].tweet/sum;
       }
+      this.maxSinSan(salida);
       return salida;
     },
     filtroAnio:function(original,comunas,anio){
@@ -195,6 +208,7 @@ export default{
 
         salida[i].porcentaje=salida[i].tweet/sum;
       }
+      this.maxSinSan(salida);
       return salida;
     },
     filtroDelito:function(original,comunas,delito){
@@ -227,6 +241,7 @@ export default{
 
         salida[i].porcentaje=salida[i].tweet/sum;
       }
+      this.maxSinSan(salida);
       return salida;  
     },
     filtroOriginal:function(original,comunas){
@@ -257,6 +272,7 @@ export default{
         salida[i].porcentaje=salida[i].tweet/sum;
       }
       this.max=sum;
+      this.maxSinSan(salida);
       return salida; 
     },
     recargar:function(data){
@@ -298,9 +314,10 @@ export default{
     //console.log(comuna);
      var r;
      var aux=1;
+     var aux2=this.var2/52;
     for (var i = this.data.length - 1; i >= 0; i--) {
       //console.log(i);
-      if(this.data[i].comuna==comuna){
+      if(this.data[i].comuna==comuna && comuna=="Santiago"){
         d=this.data[i].porcentaje;
         //console.log(d);
         var a=d >= 0.5   ? '#FF0000' :
@@ -403,6 +420,114 @@ export default{
            //d > aux*0.015   ? '#2EFF00' :
            d > aux*0.01   ? '#2AFF00' :
            d > aux   ? '#00FF00' :
+                      '#00FF00';
+          console.log(a);
+        break;
+      }
+      else if(this.data[i].comuna==comuna && comuna!="Santiago"){
+        console.log("AQUI")
+        d=this.data[i].porcentaje;
+        console.log(this.var2);
+        var a=d >= aux2*53   ? '#FF0000' :
+           //d > aux*0.495   ? '#FF0800' :
+           //d > aux2* 49  ? '#FF0C00' :
+           //d > aux2* 485   ? '#FF0F00' :
+           //d > aux2* 48   ? '#FF1B00' :
+           //d > aux2* 475   ? '#FF2300' :
+           //d > aux2* 47   ? '#FF2A00' :
+           //d > aux2* 465   ? '#FF3200' :
+           d > aux2* 46 ? '#FF3A00' :
+           //d > aux2* 455   ? '#FF4600' :
+           d > aux2* 45  ? '#FF4900' :
+           //d > aux2* 445   ? '#FF4D00' :
+           d > aux2* 44  ? '#FF5100' :
+           //d > aux2* 435   ? '#FF5500' :
+           d > aux2* 43  ? '#FF5900' :
+           //d > aux2* 425   ? '#FF5D00' :
+           d > aux2* 42   ? '#FF6100' :
+           //d > aux2* 415   ? '#FF6400' :
+           d > aux2* 41   ? '#FF6C00' :
+           //d > aux2* 405   ? '#FF7000' :
+           d > aux2* 40  ? '#FF7400' :
+           //d > aux2* 395   ? '#FF7800' :
+           d > aux2* 39  ? '#FF7C00' :
+           //d > aux2* 385   ? '#FF8000' :
+           d > aux2* 38   ? '#FF8300' :
+           //d > aux2* 375   ? '#FF8700' :
+           d > aux2* 37   ? '#FF8B00' :
+           //d > aux2* 365   ? '#FF8F00' :
+           d > aux2* 36 ? '#FF9300' :
+           //d > aux2* 355   ? '#FF9B00' :
+           d > aux2* 35  ? '#FF9E00' :
+           //d > aux2* 345   ? '#FFA200' :
+           d > aux2* 34  ? '#FFA600' :
+           //d > aux2* 335   ? '#FFAA00' :
+           d > aux2* 33  ? '#FFAE00' :
+           //d > aux2* 325   ? '#FFB200' :
+           d > aux2* 32   ? '#FFB600' :
+           //d > aux2* 315   ? '#FFBD00' :
+           d > aux2* 31   ? '#FFC500' :
+           //d > aux2* 305   ? '#FFC900' :
+           d > aux2* 30  ? '#FFCD00' :
+           //d > aux2* 295   ? '#FFD100' :
+           d > aux2* 29  ? '#FFD500' :
+           //d > aux2* 285   ? '#FFD800' :
+           d > aux2* 28   ? '#FFDC00' :
+           //d > aux2* 275   ? '#FFE000' :
+           d > aux2* 27   ? '#FFE400' :
+           //d > aux2* 265   ? '#FFE800' :
+           d > aux2* 26 ? '#FFF000' :
+           //d > aux2* 255   ? '#FFF300' :
+           d > aux2* 25  ? '#FFF700' :
+           //d > aux2* 245   ? '#FFFB00' :
+           d > aux2* 24  ? '#FFFF00' :
+           //d > aux2* 235   ? '#FBFF00' :
+           d > aux2* 23  ? '#F7FF00' :
+           //d > aux2* 225   ? '#F3FF00' :
+           d > aux2* 22   ? '#ECFF00' :
+           //d > aux2* 215   ? '#E4FF00' :
+           d > aux2* 21   ? '#E0FF00' :
+           //d > aux2* 205   ? '#DCFF00' :
+           d > aux2* 20   ? '#D8FF00' :
+           //d > aux2* 195  ? '#D4FF00' :
+           d > aux2* 19  ? '#D1FF00' :
+           //d > aux2* 185   ? '#CDFF00' :
+           d > aux2* 18   ? '#C9FF00' :
+           //d > aux2* 175 ? '#C5FF00' :
+           d > aux2* 17 ? '#C1FF00' :
+           //d > aux2* 165  ? '#B9FF00' :
+           d > aux2* 16  ? '#B6FF00' :
+           //d > aux2* 155   ? '#B2FF00' :
+           d > aux2* 15   ? '#AEFF00' :
+           //d > aux2* 145 ? '#AAFF00' :
+           d > aux2* 14  ? '#A6FF00' :
+           //d > aux2* 135  ? '#A2FF00' :
+           d > aux2* 13  ? '#9EFF00' :
+           //d > aux2* 125   ? '#97FF00' :
+           d > aux2* 12   ? '#8FFF00' :
+           //d > aux2* 115 ? '#8BFF00' :
+           d > aux2* 11   ? '#87FF00' :
+           //d > aux2* 105  ? '#83FF00' :
+           d > aux2* 10 ? '#80FF00' :
+           //d > aux2* 095   ? '#7CFF00' :
+           d > aux2* 9  ? '#78FF00' :
+           //d > aux2* 085   ? '#74FF00' :
+           d > aux2* 8   ? '#70FF00' :
+           //d > aux2* 075   ? '#6CFF00' :
+           d > aux2* 7   ? '#64FF00' :
+           //d > aux2* 065   ? '#5DFF00' :
+           d > aux2* 6 ? '#59FF00' :
+           //d > aux2* 055   ? '#55FF00' :
+           d > aux2* 5  ? '#51FF00' :
+           //d > aux2* 045   ? '#4DFF00' :
+           d > aux2* 4  ? '#49FF00' :
+           //d > aux2* 035   ? '#42FF00' :
+           d > aux2* 3  ? '#3AFF00' :
+           //d > aux2* 025   ? '#36FF00' :
+           d > aux2* 2   ? '#32FF00' :
+           //d > aux2* 015   ? '#2EFF00' :
+           d > aux2* 1   ? '#2AFF00' :
+           d > aux2   ? '#00FF00' :
                       '#00FF00';
           console.log(a);
         break;
