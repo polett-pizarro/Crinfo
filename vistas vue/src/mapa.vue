@@ -1,47 +1,50 @@
 <template >
   <div >
-    <br>
-    <h2 class = "navi">
-      <i class="fa fa-map"></i>
-      MAPA
-
+    <div>
+      <br>
+      <h2 class = "navi">
+        <i class="fa fa-map"></i>
+        MAPA
+      </h2>
+    </div>
+    <hr>
+    <h4 ALIGN="justify"> En el mapa de calor se puede observar cuanto hablan los tuiteros, en cada communa sobre los delitos, representando con colores verdes los porcentajes mas bajos, con amarillos los intermedios y rojos los las altos: </h4>
+    <div>
       <div class="pull-right row" style="margin-right:40px">
-          <div class="dropdown">
-            <button class="btn btn-info dropdown-toggle" type="button" id="menuAnio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{this.mAnio}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1"style="margin">
-              <tr v-for="u,i in anios">
-                <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,u[1])">{{u[1]}}</button>
-              </tr>
-              <div class="dropdown-divider">
-              </div>
-              <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,'AÑOS')">AÑOS</button>
-            </div>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-info dropdown-toggle" type="button" id="menuDelito" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{this.mDelito}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-              <tr v-for="u,i in delitos">
-                <button class="dropdown-item" type="button" id="i" v-on:click="cambiar(u.crimeName,mAnio)">{{u.crimeName}}</button>
-              </tr>
-              <div class="dropdown-divider">
-              </div>
-              <button class="dropdown-item" type="button" v-on:click="cambiar('DELITOS',mAnio)">DELITOS
-              </button>
-            </div>
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="menuAnio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{this.mAnio}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1"style="margin">
+            <tr v-for="u,i in anios">
+              <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,u[1])">{{u[1]}}</button>
+            </tr>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" type="button" v-on:click="cambiar(mDelito,'AÑOS')">AÑOS</button>
           </div>
         </div>
-    </h2>
-    
-    <hr>
-    <div class="contentMapa">
-    
-    <div class = "mapa" id="mapid" style="height: 600px; width: 100%;" >
-      
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="menuDelito" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{this.mDelito}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <tr v-for="u,i in delitos">
+              <button class="dropdown-item" type="button" id="i" v-on:click="cambiar(u.crimeName,mAnio)">{{u.crimeName}}</button>
+            </tr>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" type="button" v-on:click="cambiar('DELITOS',mAnio)">DELITOS
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+    <br>
+    <br>
+    <div>
+      <div class="contentMapa">
+        <div class = "mapa" id="mapid" style="height: 600px; width: 100%;" >
+        </div>
+      </div>
     </div>
   </div>
   

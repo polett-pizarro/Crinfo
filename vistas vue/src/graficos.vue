@@ -2,7 +2,8 @@
   <body class="navi">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h2><i class="fa fa-bar-chart-o fa-fw"></i> ESTADISTICA POR AÑO</h2>
+        <br>  
+        <h2><i class="fa fa-bar-chart-o fa-fw"></i> FRECUENCIA DE DELITOS POR MESES</h2>
         <hr>
         <div class="pull-right row" style="margin-right:40px">
           <div class="dropdown">

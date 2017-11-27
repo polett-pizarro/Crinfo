@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-10">
+          <div class="col-lg-12">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h2>
@@ -31,6 +31,7 @@
                 </div>
               </div>
             </div>
+            <br>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h2>
@@ -51,64 +52,70 @@
                 </div>
               </div>
             </div>
-            <div class="panel panel-info col-lg-6">
-              <div class="panel-heading">
-                <h4>
-                  <i class="fa fa-bell fa-fw"></i> 
-                  Top 3 Delitos en Santiago
-                </h4>
-              </div>
-              <div class="panel-body">
-                <div class="table-responsive">
-                  <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                      <tr>
-                        <th>Pos.</th>
-                        <th>Delito</th>
-                        <th>#Tweets</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="u,i in TopCrime">
-                        <td>{{i+1}}.-</td>
-                        <td>{{u[0]}}</td>
-                        <td>{{u[1]}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+            <br>
+            <div class="col-container col-lg-12" style="display: table; width: 100%;">
+              <div class="col" style= "display: table-cell;width: 40%;">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4>
+                      <i class="fa fa-bell fa-fw"></i> 
+                      Top 5 Comunas con más delitos
+                    </h4>
+                  </div>
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                          <tr>
+                            <th>Pos.</th>
+                            <th>Nombre</th>
+                            <th>#Tweets</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="u,i in TopCommune">
+                            <td>{{i+1}}.-</td>
+                            <td>{{u[0]}}</td>
+                            <td>{{u[1]}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <br>
-            <br>
-            <div class="panel panel-info  col-lg-6">
-              <div class="panel-heading">
-                <h4>
-                  <i class="fa fa-bell fa-fw"></i> 
-                  Top 5 Comunas con más delitos
-                </h4>
-              </div>
-              <div class="panel-body">
-                <div class="table-responsive">
-                  <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                      <tr>
-                        <th>Pos.</th>
-                        <th>Nombre</th>
-                        <th>#Tweets</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="u,i in TopCommune">
-                        <td>{{i+1}}.-</td>
-                        <td>{{u[0]}}</td>
-                        <td>{{u[1]}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div class="col" style= "display: table-cell;width: 40%;">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4>
+                      <i class="fa fa-bell fa-fw"></i> 
+                      Top 3 Delitos en Santiago
+                    </h4>
+                  </div>
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                          <tr>
+                            <th>Pos.</th>
+                            <th>Delito</th>
+                            <th>#Tweets</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="u,i in TopCrime">
+                            <td>{{i+1}}.-</td>
+                            <td>{{u[0]}}</td>
+                            <td>{{u[1]}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </div>              
             </div>
+            <br>
           </div>
         </div>
       </div>

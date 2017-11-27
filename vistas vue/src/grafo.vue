@@ -2,10 +2,29 @@
   <div id="wrapper" class="navi">
     <div id="page-wrapper">
       <div class="row">
-        <div class="col-lg-10">
+        <div>
           <br>
           <h2 class="page-header"><font color="#0e1a35"><i class="fa fa-info"></i> ¿DE QUÉ SE ESTÁ HABLANDO?</font></h2>
           <hr>
+          <h4> En el grafo se puede observar cuanto hablan los tuiteros de cada tipo de delito: </h4><br>
+          <table class = "tabla1">
+            <tr class="g-b">
+              <td class=" g-1 g-a g-center">.........</td>
+              <td> Tuiteros </td>
+              <td class=" g-2 g-a g-center">.........</td>
+              <td> Responsabilidad Penal Adolecente </td>
+              <td class=" g-5 g-a g-center">.........</td>
+              <td> Drogas </td>
+            </tr><br><tr class="g-b">
+              <td class=" g-4 g-a g-center">.........</td>
+              <td> Delitos Violentos </td>
+              <td class=" g-3 g-a g-center">.........</td>
+              <td> Violencia Intrafamiliar </td>
+              <td class=" g-6 g-a g-center">.........</td>
+              <td> Delitos Sexuales </td>
+            </tr>
+          </table>
+          <br>
           <svg class="grafo" width="1000" height="750"></svg>
           <br>
           <br>
@@ -53,11 +72,9 @@
   export default{
   	data(){
         var TopCommune;
-        var topInfluencia;
         var top;
         return{
             TopCommune:[],
-            topInfluencia:[[5249, "Tele13"],[5034,"BioBioChile"],[3402, "La Tercera"],[3298, "Emol.com"],[3041, "Radio ADN"],[2972, "The Clinic Online"],[2311, "Carabineros de Chile"],[1607, "Publimetro"],[1244, "Marco Enríquez-O"],[438, "LaSerenaOnline"]],
             top:[]
         }
     },

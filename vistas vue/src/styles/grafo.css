@@ -28,3 +28,53 @@
     border-width: 5px;
 }
 
+.g-1 {
+    background-color: #58ACFA;
+    color:#58ACFA;
+}
+.g-2 {
+    background-color: #FE9A2E;
+    color:#FE9A2E;
+}
+.g-3 {
+    background-color: #9AFE2E;
+    color:#9AFE2E;
+}
+.g-4 {
+    background-color: #F7FE2E;
+    color:#F7FE2E;
+}
+.g-5 {
+    background-color: #FE2E2E;
+    color:#FE2E2E;
+}
+.g-6 {
+    background-color: #A901DB;
+    color:#A901DB;
+}
+.g-padding-32{
+    padding-top:32px;
+    padding-bottom:32px;
+}
+
+.g-center{
+    text-align:center;
+    height: 50px;
+}
+
+.g-a{
+    border-radius: 50%;
+}
+.g-b{
+    border: 10px;
+}
+
+.tabla1{
+    width: 80%;
+    border-collapse: collapse;
+    align-content: center;
+}
+
+.panel-body{
+    font: 10px;
+}
