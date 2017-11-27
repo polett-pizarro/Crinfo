@@ -9,8 +9,9 @@
     </div>
     <hr>
     <h4 ALIGN="justify"> En el mapa de calor se puede observar cuanto hablan los tuiteros, en cada communa sobre los delitos, representando con colores verdes los porcentajes mas bajos, con amarillos los intermedios y rojos los las altos: </h4>
+    <br>
     <div>
-      <div class="pull-right row" style="margin-right:40px">
+      <div class="pull-right row" style="margin-right:0px">
         <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="menuAnio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{this.mAnio}}
@@ -38,7 +39,21 @@
         </div>
       </div>
     </div>
-    <br>
+    <table style = "width: 79%; border-collapse: collapse; ">
+      <tr>
+        <td style="border-radius: 20px 0px 0px 20px; background: #FF0000; text-align: center; padding: 11px;"> >=50% </td>
+        <td style="background: #FF4900; text-align: center; padding: 11px;"> 45% </td>
+        <td style="background: #FF7400; text-align: center; padding: 11px;"> 40% </td>
+        <td style="background: #FF9E00; text-align: center; padding: 11px;"> 35% </td>
+        <td style="background: #FFCD00; text-align: center; padding: 11px;"> 30% </td>
+        <td style="background: #FFF700; text-align: center; padding: 11px;"> 25% </td>
+        <td style="background: #D8FF00; text-align: center; padding: 11px;"> 20% </td>
+        <td style="background: #AEFF00; text-align: center; padding: 11px;"> 15% </td>
+        <td style="background: #80FF00; text-align: center; padding: 11px;"> 10% </td>
+        <td style="background: #51FF00; text-align: center;  padding: 11px;"> 5% </td>
+        <td style=" border-radius: 0px 20px 20px 0px; background: #2AFF00; text-align: center;  padding: 11px;"> >=1% </td>
+      </tr>
+    </table>
     <br>
     <div>
       <div class="contentMapa">
