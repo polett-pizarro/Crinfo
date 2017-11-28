@@ -46,18 +46,18 @@
       
       return{
         data : [
-        			{month:'Enero', frequency: .123},
-        			{month:'Febrero', frequency: .321},
-        			{month:'Marzo', frequency: .312},
-        			{month:'Abril', frequency: .213},
-        			{month:'Mayo', frequency: .132},
-        			{month:'Junio', frequency: .412},
-        			{month:'Julio', frequency: .312},
-        			{month:'Agosto', frequency: .231},
-        			{month:'Septiembre', frequency: .100},
-        			{month:'Octubre', frequency: .200},
-        			{month:'Noviembre', frequency: .300},
-        			{month:'Diciembre', frequency: .940}
+        			{month:'Enero', frequency: 0,cantidad:0},
+                {month:'Febrero', frequency: 0,cantidad:0},
+                {month:'Marzo', frequency: 0,cantidad:0},
+                {month:'Abril', frequency: 0,cantidad:0},
+                {month:'Mayo', frequency: 0,cantidad:0},
+                {month:'Junio', frequency: 0,cantidad:0},
+                {month:'Julio', frequency: 0,cantidad:0},
+                {month:'Agosto', frequency: 0,cantidad:0},
+                {month:'Septiembre', frequency: 0,cantidad:0},
+                {month:'Octubre', frequency: 0,cantidad:0},
+                {month:'Noviembre', frequency: 0,cantidad:0},
+                {month:'Diciembre', frequency: 0,cantidad:0}
         ],
         totalG:0,
       GranRespuestaCrimenAnio:[],
@@ -136,12 +136,17 @@
 
         g.append("g")
 			      .attr("class", "axis axis--x")
+
 			      .attr("transform", "translate(0," + height + ")")
-			      .call(d3.axisBottom(x));
+            
+			      .call(d3.axisBottom(x))
+            .attr("font-size", "13px");
 
 			  g.append("g")
 			      .attr("class", "axis axis--y")
-			      .call(d3.axisLeft(y).ticks(20, "%")) // ticks indica la cantidad de indices del eje y
+      
+			      .call(d3.axisLeft(y).ticks(20, "%"))
+            .attr("font-size", "13px") // ticks indica la cantidad de indices del eje y
 			    .append("text")
 			      .attr("transform", "rotate(-90)")
 			      .attr("y", 6)
@@ -165,6 +170,26 @@
           .attr("y", function(d) { return y(d.frequency); })
           .attr("width", x.bandwidth())
           .attr("height", function(d) { return height - y(d.frequency); });
+
+      g.append("g")
+         .selectAll("text")
+         .data(data)
+         .enter()
+         .append("text")
+         .attr("class","valores")
+         .text(function(d) {
+            return d.cantidad;
+         })
+         .attr("text-anchor", "middle")
+         .attr("x", function(d, i) {
+            return i * (width / data.length) + (width / data.length) / 2;
+         })
+         .attr("y", function(d) {
+            return height - d.frequency*500 ;
+         })
+         .attr("font-family", "arial")
+         .attr("font-size", "13px")
+         .attr("fill", "black");
       },
       recargar:function(data){
         var svg = d3.select(".grafico"),
@@ -182,6 +207,7 @@
 
         g = d3.select(".g");
         var bar = g.selectAll(".bar").remove().exit().data(data);
+        var valores = g.selectAll(".valores").remove().exit().data(data);
         // Select the section we want to apply our changes to
         var g = d3.select(".g").transition();
 
@@ -198,25 +224,44 @@
           .append("rect")
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.month); })
-          .transition().duration(750)
+          .transition().duration(750).ease(d3.easeLinear)
           .attr("y", function(d) { return y(d.frequency); })
           .attr("width", x.bandwidth())
           .attr("height", function(d) { return height - y(d.frequency); });
+
+        valores.enter()
+          .append("text")
+          .attr("class","valores")
+          .transition().duration(750)
+         .text(function(d) {
+            return d.cantidad;
+         })
+         .attr("text-anchor", "middle")
+         .attr("x", function(d, i) {
+            return i * (width / data.length) + (width / data.length) / 2;
+         })
+         .attr("y", function(d) {
+            return height - d.frequency*500 ;
+         })
+         .attr("font-family", "arial")
+         .attr("font-size", "13px")
+         .attr("fill", "black");
+
       },
       crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
            var newData=[
-                {month:'Enero', frequency: 0},
-                {month:'Febrero', frequency: 0},
-                {month:'Marzo', frequency: 0},
-                {month:'Abril', frequency: 0},
-                {month:'Mayo', frequency: 0},
-                {month:'Junio', frequency: 0},
-                {month:'Julio', frequency: 0},
-                {month:'Agosto', frequency: 0},
-                {month:'Septiembre', frequency: 0},
-                {month:'Octubre', frequency: 0},
-                {month:'Noviembre', frequency: 0},
-                {month:'Diciembre', frequency: 0}
+                {month:'Enero', frequency: 0,cantidad:0},
+                {month:'Febrero', frequency: 0,cantidad:0},
+                {month:'Marzo', frequency: 0,cantidad:0},
+                {month:'Abril', frequency: 0,cantidad:0},
+                {month:'Mayo', frequency: 0,cantidad:0},
+                {month:'Junio', frequency: 0,cantidad:0},
+                {month:'Julio', frequency: 0,cantidad:0},
+                {month:'Agosto', frequency: 0,cantidad:0},
+                {month:'Septiembre', frequency: 0,cantidad:0},
+                {month:'Octubre', frequency: 0,cantidad:0},
+                {month:'Noviembre', frequency: 0,cantidad:0},
+                {month:'Diciembre', frequency: 0,cantidad:0}
           ];
           let sum=0;
           let j;
@@ -235,6 +280,7 @@
             if(sum==0){
               break;
             }
+            newData[i].cantidad=newData[i].frequency;
             newData[i].frequency=newData[i].frequency / sum;
             console.log(newData[i]);
           }
@@ -243,18 +289,18 @@
         },
         crearDataAnio:function(GranRespuesta,anio){
            var newData=[
-                {month:'Enero', frequency: 0},
-                {month:'Febrero', frequency: 0},
-                {month:'Marzo', frequency: 0},
-                {month:'Abril', frequency: 0},
-                {month:'Mayo', frequency: 0},
-                {month:'Junio', frequency: 0},
-                {month:'Julio', frequency: 0},
-                {month:'Agosto', frequency: 0},
-                {month:'Septiembre', frequency: 0},
-                {month:'Octubre', frequency: 0},
-                {month:'Noviembre', frequency: 0},
-                {month:'Diciembre', frequency: 0}
+                {month:'Enero', frequency: 0,cantidad:0},
+                {month:'Febrero', frequency: 0,cantidad:0},
+                {month:'Marzo', frequency: 0,cantidad:0},
+                {month:'Abril', frequency: 0,cantidad:0},
+                {month:'Mayo', frequency: 0,cantidad:0},
+                {month:'Junio', frequency: 0,cantidad:0},
+                {month:'Julio', frequency: 0,cantidad:0},
+                {month:'Agosto', frequency: 0,cantidad:0},
+                {month:'Septiembre', frequency: 0,cantidad:0},
+                {month:'Octubre', frequency: 0,cantidad:0},
+                {month:'Noviembre', frequency: 0,cantidad:0},
+                {month:'Diciembre', frequency: 0,cantidad:0}
           ];
           let sum=0;
           let j;
@@ -270,6 +316,7 @@
             if(sum==0){
               break;
             }
+            newData[i].cantidad=newData[i].frequency;
             newData[i].frequency=newData[i].frequency / sum;
             console.log(newData[i]);
           }
@@ -278,18 +325,18 @@
         },
         crearDataCrimen:function(GranRespuesta,id){
            var newData=[
-                {month:'Enero', frequency: 0},
-                {month:'Febrero', frequency: 0},
-                {month:'Marzo', frequency: 0},
-                {month:'Abril', frequency: 0},
-                {month:'Mayo', frequency: 0},
-                {month:'Junio', frequency: 0},
-                {month:'Julio', frequency: 0},
-                {month:'Agosto', frequency: 0},
-                {month:'Septiembre', frequency: 0},
-                {month:'Octubre', frequency: 0},
-                {month:'Noviembre', frequency: 0},
-                {month:'Diciembre', frequency: 0}
+                {month:'Enero', frequency: 0,cantidad:0},
+                {month:'Febrero', frequency: 0,cantidad:0},
+                {month:'Marzo', frequency: 0,cantidad:0},
+                {month:'Abril', frequency: 0,cantidad:0},
+                {month:'Mayo', frequency: 0,cantidad:0},
+                {month:'Junio', frequency: 0,cantidad:0},
+                {month:'Julio', frequency: 0,cantidad:0},
+                {month:'Agosto', frequency: 0,cantidad:0},
+                {month:'Septiembre', frequency: 0,cantidad:0},
+                {month:'Octubre', frequency: 0,cantidad:0},
+                {month:'Noviembre', frequency: 0,cantidad:0},
+                {month:'Diciembre', frequency: 0,cantidad:0}
           ];
           let sum=0;
           let j;
@@ -305,6 +352,7 @@
             if(sum==0){
               break;
             }
+            newData[i].cantidad=newData[i].frequency;
             newData[i].frequency=newData[i].frequency / sum;
             console.log(newData[i]);
           }
@@ -313,18 +361,18 @@
         },
         crearDataAnioCrimen:function(GranRespuesta,anio,idCrimen){
            var newData=[
-                {month:'Enero', frequency: 0},
-                {month:'Febrero', frequency: 0},
-                {month:'Marzo', frequency: 0},
-                {month:'Abril', frequency: 0},
-                {month:'Mayo', frequency: 0},
-                {month:'Junio', frequency: 0},
-                {month:'Julio', frequency: 0},
-                {month:'Agosto', frequency: 0},
-                {month:'Septiembre', frequency: 0},
-                {month:'Octubre', frequency: 0},
-                {month:'Noviembre', frequency: 0},
-                {month:'Diciembre', frequency: 0}
+                {month:'Enero', frequency: 0,cantidad:0},
+                {month:'Febrero', frequency: 0,cantidad:0},
+                {month:'Marzo', frequency: 0,cantidad:0},
+                {month:'Abril', frequency: 0,cantidad:0},
+                {month:'Mayo', frequency: 0,cantidad:0},
+                {month:'Junio', frequency: 0,cantidad:0},
+                {month:'Julio', frequency: 0,cantidad:0},
+                {month:'Agosto', frequency: 0,cantidad:0},
+                {month:'Septiembre', frequency: 0,cantidad:0},
+                {month:'Octubre', frequency: 0,cantidad:0},
+                {month:'Noviembre', frequency: 0,cantidad:0},
+                {month:'Diciembre', frequency: 0,cantidad:0}
           ];
           let sum=0;
           let j;
@@ -343,6 +391,7 @@
             if(sum==0){
               break;
             }
+            newData[i].cantidad=newData[i].frequency;
             newData[i].frequency=newData[i].frequency / sum;
             console.log(newData[i]);
           }
@@ -351,18 +400,18 @@
         },
         crearDataAnio:function(GranRespuesta,anio){
            var newData=[
-                {month:'Enero', frequency: 0},
-                {month:'Febrero', frequency: 0},
-                {month:'Marzo', frequency: 0},
-                {month:'Abril', frequency: 0},
-                {month:'Mayo', frequency: 0},
-                {month:'Junio', frequency: 0},
-                {month:'Julio', frequency: 0},
-                {month:'Agosto', frequency: 0},
-                {month:'Septiembre', frequency: 0},
-                {month:'Octubre', frequency: 0},
-                {month:'Noviembre', frequency: 0},
-                {month:'Diciembre', frequency: 0}
+                {month:'Enero', frequency: 0,cantidad:0},
+                {month:'Febrero', frequency: 0,cantidad:0},
+                {month:'Marzo', frequency: 0,cantidad:0},
+                {month:'Abril', frequency: 0,cantidad:0},
+                {month:'Mayo', frequency: 0,cantidad:0},
+                {month:'Junio', frequency: 0,cantidad:0},
+                {month:'Julio', frequency: 0,cantidad:0},
+                {month:'Agosto', frequency: 0,cantidad:0},
+                {month:'Septiembre', frequency: 0,cantidad:0},
+                {month:'Octubre', frequency: 0,cantidad:0},
+                {month:'Noviembre', frequency: 0,cantidad:0},
+                {month:'Diciembre', frequency: 0,cantidad:0}
           ];
           let sum=0;
           let j;
@@ -378,6 +427,7 @@
             if(sum==0){
               break;
             }
+            newData[i].cantidad=newData[i].frequency;
             newData[i].frequency=newData[i].frequency / sum;
             console.log(newData[i]);
           }
@@ -386,18 +436,18 @@
         },
         crearDataCrimen:function(GranRespuesta,id){
            var newData=[
-                {month:'Enero', frequency: 0},
-                {month:'Febrero', frequency: 0},
-                {month:'Marzo', frequency: 0},
-                {month:'Abril', frequency: 0},
-                {month:'Mayo', frequency: 0},
-                {month:'Junio', frequency: 0},
-                {month:'Julio', frequency: 0},
-                {month:'Agosto', frequency: 0},
-                {month:'Septiembre', frequency: 0},
-                {month:'Octubre', frequency: 0},
-                {month:'Noviembre', frequency: 0},
-                {month:'Diciembre', frequency: 0}
+                {month:'Enero', frequency: 0,cantidad:0},
+                {month:'Febrero', frequency: 0,cantidad:0},
+                {month:'Marzo', frequency: 0,cantidad:0},
+                {month:'Abril', frequency: 0,cantidad:0},
+                {month:'Mayo', frequency: 0,cantidad:0},
+                {month:'Junio', frequency: 0,cantidad:0},
+                {month:'Julio', frequency: 0,cantidad:0},
+                {month:'Agosto', frequency: 0,cantidad:0},
+                {month:'Septiembre', frequency: 0,cantidad:0},
+                {month:'Octubre', frequency: 0,cantidad:0},
+                {month:'Noviembre', frequency: 0,cantidad:0},
+                {month:'Diciembre', frequency: 0,cantidad:0}
           ];
           let sum=0;
           let j;
@@ -413,6 +463,7 @@
             if(sum==0){
               break;
             }
+            newData[i].cantidad=newData[i].frequency;
             newData[i].frequency=newData[i].frequency / sum;
             console.log(newData[i]);
           }
@@ -444,6 +495,7 @@
           let auxs=salida.body;
           for (var i = auxs.length - 1; i >= 0; i--) {
             this.totalG=this.totalG+auxs[i][0];
+            this.data[i].cantidad=auxs[i][0];
           }
           for (i = auxs.length - 1; i >= 0; i--) {
             this.data[i].frequency=auxs[i][0]/this.totalG;
