@@ -93,24 +93,45 @@ public class TwitterStreaming {
 	        resultados.add(lugar.indexOf("Isla de Maipo"));
 	        resultados.add(lugar.indexOf("El Monte"));
 	        resultados.add(lugar.indexOf("Padre Hurtado"));
-	        int i = 1;
-	        int a ;
+	        int i = 0;
+	        int a ,numero;
 	        while(i<52)
 	        {
 	        	int com = resultados.get(i);
 	        	if(com != -1)
 	        	{
-	        		a= i + 1;
-	        		System.out.println("la comuna  es:"+a+";deberia ser:"+lugar);
-	        		return i+1;
+	        		if(i==0)
+	        		{
+	        			numero = (int) (Math.random() * 52) + 1;
+	        			System.out.println("la comuna es: "+ numero+ ";deberia ser:"+lugar);
+	        			return numero;
+	        		}
+	        		else if(i==17)
+	        		{
+	        			System.out.println("la comuna es: Nunoa;deberia ser:"+lugar);
+	        			return 10;	
+	        		}
+	        		else if(i == 45)
+	        		{
+		        		System.out.println("la comuna es: Las Condes;deberia ser:"+lugar);
+	        			return 9;
+	        		}
+	        		else
+	        		{
+	        			a= i + 1;
+		        		System.out.println("la comuna  es:"+a+";deberia ser:"+lugar);
+		        		return i+1;
+	        		}
+	        		
+	        		
 	        	}
 	        	i++;
 	        }
 	        int comu = resultados.get(0);
 	        if (comu != -1)
 	        {
-        		System.out.println("la comuna es: 1 ;deberia ser:"+lugar);
-	        	return 1;
+        		//System.out.println("la comuna es: 1 ;deberia ser:"+lugar);
+	        	//return 1;
 	        }
 		}
         return -1;

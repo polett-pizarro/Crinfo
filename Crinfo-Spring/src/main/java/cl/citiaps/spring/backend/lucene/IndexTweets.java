@@ -88,7 +88,7 @@ public class IndexTweets {
 		         System.out.println("Idenxado Correctamente"+i);
 		         
 		      }
-		    
+		    collection.drop();
 			mongoClient.close();
 			this.iWriter.close();
 			//iWriter.close();
@@ -136,7 +136,7 @@ public class IndexTweets {
 	
 	public static void main(String[] args) throws IOException {
 		IndexTweets iTweets = new IndexTweets("../indice_invertido_tweets");
-		iTweets.idexation("Crinfo","twSprint2");
+		iTweets.idexation("Crinfo","twSprint3");
 		
 	}
 }

@@ -37,32 +37,29 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 5000)
+    /*@Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
         log.info("The time es ahora {}", dateFormat.format(new Date()));
         //File f = new File("../indice_invertido_tweets");
         //f.delete();
        
     }
+    */
     
     //CREANDO INDICE INVERTIDO PARA NEO4J Y LA INSERCION DE LOS TWEETS
-    @Scheduled(cron = "0 0 8 * * ?")
+    //@Scheduled(cron = "0 0 8 * * ?")
+    @Scheduled(fixedRate = 999999999)
     public void tweetsNeo4j() throws IOException
     {
-    	File f = new File("../indice_invertido_Neo4j");
-    	if(f.exists())
-    	{
-    		f.delete();
-    	}
-        
-    	IndexTweets iTweets = new IndexTweets("../indice_invertido_Neo4j");
-		iTweets.idexation("Crinfo","twSprint3");
+    	//IndexTweets iTweets = new IndexTweets("../indice_invertido_Neo4j");
+		//iTweets.idexation("Crinfo","twSprint3");
 		Neo4j n4j = new Neo4j();
     	n4j.initNeo4j();
     	System.out.println("NEO4J ACTUALIZADO");
     }
     
     //INSERCION DE LOS TWEETS EN LA DB RELACIONAL
+    //@Scheduled(fixedRate = 10005000)
     @Scheduled(cron = "0 30 8 * * ?")
     public void tweetsSQL() throws IOException {
     	
@@ -72,7 +69,7 @@ public class ScheduledTasks {
     		f.delete();
     	}
         
-        tweetRepository.deleteAll();  
+        //tweetRepository.deleteAll();  
         
     	IndexTweets iTweets = new IndexTweets("../indice_invertido_tweets");
 		iTweets.idexation("Crinfo","twSprint3");
@@ -106,5 +103,6 @@ public class ScheduledTasks {
         }
         System.out.println("DB-RELACIONAL ACTUALIZADA");
      }
+     
      
 }
